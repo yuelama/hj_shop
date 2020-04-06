@@ -1,0 +1,27 @@
+<!--hj_shop/pages/order/order.wxml-->
+<view class="main">
+    
+  <navigator url="../address/address">
+        <view wx:if="{{address.userName}}" class="order-address">
+            <text class="order-address-name">收货人: {{address.userName}}</text>
+            <view class="order-address-phone">电话: {{address.telNumber}}</view>
+            <view class="order-address-detail"> {{address.provinceName}}  {{address.cityName}} {{address.countyName}} {{address.detailInfo}}</view>
+           <!-- <view class="order-address-detail">备注: {{address.message}}</view> -->
+        </view>
+        <view wx:else class="order-no-address">添加收货地址</view>
+    </navigator> 
+
+    <view class="order-box">
+       <view wx:for="{{orders}}" wx:key="index" class="order-list"> 
+            <image class="order-thumb" src="{{item.img}}"></image>
+            <view class="order-pro-name">{{item.product_name}}</view>
+            <view class="order-pro-price">￥{{item.price}}</view>
+            <view class="order-count-num">×{{item.product_num}}</view>
+        </view>
+    </view>
+    <view style='color: #adadad;font-size: 34rpx;padding:20rpx 35rpx;border-bottom:0.5rpx #ededed solid;'>买家留言：</view>
+    <view class="order-footer">
+        <view class="order-footer-total">付款合计：￥{{total_price}}</view>
+        <view class="order-footer-btn" bindtap="ToPay">去付款</view>
+    </view>
+</view>

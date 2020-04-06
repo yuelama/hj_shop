@@ -1,0 +1,54 @@
+<!--hj_shop/pages/cart/cart.wxml-->
+<view class="cart" hidden="{{iscart}}">
+    <image src="../../../images/temp/trash.png"/>
+    <view>购物车什么都没有，赶快去挑选商品吧</view>
+</view>
+<!--要是有数据，就显示数据-->
+<view class="cartList" hidden="{{!iscart}}">
+    <!--header-->
+    <view class="baoyou"></view>
+    <!--list item-->
+    <block wx:for="{{cart}}">		
+        <view class="goods">
+			     		<!-- wx:if 是否选择显示不同图标 -->
+					<!-- <view class="select">
+			     <icon wx:if="{{item.selected}}" type="success"  color="red" bindtap="selectList" data-index="{{index}}" />
+			     <icon wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>	
+					</view> -->
+           <!-- 点击左图商品图片可跳转到商品详情 -->
+          <navigator url="../productdetail/productdetail?id={{item.id}}">
+                <image class="cart-thumb" src="{{item.img}}"></image>
+           </navigator>
+																			
+            <!--右侧说明部分-->
+            <view class="good-cont">
+                <!--文字说明-->
+                <view class="goods-navigator">
+                    <text class="good-name">{{item.product_name}}</text>
+                </view>
+                <!--价钱和购物加减的父盒子-->
+                <view class="good-price">
+                    <text class="price">￥{{item.price}}</text>
+                    <view class="btn-box">
+                        <view class="btn">
+                            <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>
+                            <input  value="{{item.product_num}}"/>
+                            <button id="add{{index}}" type="default" size="mini" bindtap="addCount">+</button>
+                        </view>
+                        <image id="img{{index}}" src="../../../images/temp/trash.png"  bindtap="delGoods"/>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <!--footer-->
+    <view class="total">
+        <view class="total_text">合计：<text>￥{{total}}</text></view>
+        <button class="total_js" size="mini" data-cart="{{cart}}"  data-total="{{total}}"
+		 data-count="{{goodsCount}}"  bindtap="Tooder">去结算({{goodsCount}})</button>
+		 
+		 <!-- <view class="total_js"  data-cart="{{cart}}"  data-total="{{total}}"
+		  data-count="{{goodsCount}}"  bindtap='Tooder'>去结算({{goodsCount}})</view> -->
+    </view>
+</view>
+

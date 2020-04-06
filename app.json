@@ -1,0 +1,52 @@
+{
+  "pages": [
+  
+   "hj_shop/pages/index/index",
+   "hj_shop/pages/login/login",
+    "hj_shop/pages/catelist/catelist",
+    "hj_shop/pages/productdetail/productdetail",
+    "hj_shop/pages/order/order",
+    "hj_shop/pages/address/address",
+    "hj_shop/pages/cart/cart",
+    "hj_shop/pages/user/user"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "吴大爷花椒商城",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#888",
+    "selectedColor": "#4ec5c9",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "hj_shop/pages/index/index",
+        "text": "首页",
+        "iconPath": "images/temp/home.png",
+        "selectedIconPath": "images/temp/homeactive.png"
+      },
+      {
+        "pagePath": "hj_shop/pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/temp/cart_disable.png",
+        "selectedIconPath": "images/temp/cart.png"
+      },
+      {
+        "pagePath": "hj_shop/pages/user/user",
+        "text": "个人中心",
+        "iconPath": "images/temp/tab-my-current.png",
+        "selectedIconPath": "images/temp/tab-my.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

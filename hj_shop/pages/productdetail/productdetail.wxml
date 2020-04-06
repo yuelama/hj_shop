@@ -1,0 +1,143 @@
+<!--hj_shop/pages/productdetail/productdetail.wxml-->
+<import src="../../../wxParse/wxParse.wxml" />
+
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+	<block wx:for="{{productdetail}}" wx:key="item.id">
+		<swiper-item>
+			<image src="{{item.img}}" class="slide-image" />
+		</swiper-item>
+	</block>
+</swiper>
+
+<view class="clear"></view>
+<view class="appointment">
+	<!-- <view class="app-title">商品详情</view> -->
+
+	<view class="introduce-section" wx:for="{{productdetail}}">
+		<text class="title">{{item.product_name}}</text>
+		<view class="price-box">
+			<!-- 	<text class="price"></text> -->
+			¥{{item.price}}<text class="m-price" style="margin-left:200rpx;">¥{{item.market_price}}</text>
+			<text class="coupon-tip">7折</text>
+		</view>
+
+		<view class="bot-row">
+			<text>销量: 108</text>
+			<text>库存: {{item.stock}}</text>
+			<text>浏览量:{{item.product_num}}</text>
+		</view>
+
+		<!--  分享 -->
+
+		<view class="share-section" click="share">
+			<view class="share-icon">
+				<text class="yticon icon-xingxing"></text>
+				返
+			</view>
+			<text class="tit">该商品分享可领49减10红包</text>
+			<text class="yticon icon-bangzhu1"></text>
+			<view class="share-btn">
+				立即分享
+				<text class="yticon icon-you"></text>
+			</view>
+		</view>
+
+		<view class="clear"></view>
+		<view class="c-list">
+			<view class="c-row b-b" click="toggleSpec">
+				<text class="tit" style="margin-left:10rpx;">商品选择</text>
+				<image class="por-icon" src="../../../images/temp/more.png" mode="aspectFill"></image>
+
+				<view class="con">
+					<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+						{{sItem.name}}
+					</text>
+				</view>
+				<text class="yticon icon-you"></text>
+			</view>
+
+
+			<view class="c-row b-b" style="background: linear-gradient(to right, #fdf5f6, #fdf5f6);">
+				<text class="tit">优惠券</text>
+				<text class="con t-r red">领取优惠券</text>
+				<!-- <image 	class="por-" src="../../image/more.png" mode="aspectFill"></image> -->
+				<text class="yticon icon-you"></text>
+			</view>
+
+			<view class="clear"></view>
+			<view class="c-row b-b">
+				<text class="tit">促销活动</text>
+				<view class="con-list">
+					<text>新人首单送20元无门槛代金券</text>
+					<text>订单满50减10</text>
+					<text>订单满100减30</text>
+					<text>单笔购买满两件免邮费</text>
+				</view>
+			</view>
+			<view class="c-row b-b">
+				<text class="tit">服务</text>
+				<view class="bz-list con">
+					<text>免费提供wifi茶水 ·</text>
+					<text>一对一服务 ·</text>
+				</view>
+			</view>
+		</view>
+
+		<!-- 评价 -->
+		<view class="clear"></view>
+		<view class="eva-section">
+			<view class="e-header" style="margin-top:10rpx ;">
+				<text class="tit">评价</text>
+				<text>(86)</text>
+				<!-- <text class="tip">好评率 100%</text> -->
+				<text style="margin-left:330rpx;">好评率 100%</text>
+				<text class="yticon icon-you"></text>
+			</view>
+
+			<view class="clear"></view>
+			<view class="eva-box">
+				<image class="portrait" src="{{item.img}}" mode="aspectFill"></image>
+				<view class="right">
+					<text class="name" style="font-size:20rpx;margin-left:20rpx;">Leo yo</text>
+					<text class="con" style="font-size:22rpx;margin-left:20rpx;margin-top:10rpx;">商品收到了，79元两件，质量不错，试了一下有点瘦，但是加个外罩很漂亮，我很喜欢</text>
+					<view class="bot">
+						<text class="attr" style="font-size: 20rpx;margin-top:50rpx;">购买类型：XL 红色</text>
+						<text class="attr" style="font-size: 20rpx;margin-left:160rpx;">2019-04-01 19:21</text>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="detail-desc">
+			<view class="d-header">
+				<text>图文详情</text>
+			</view>
+			<rich-text :nodes="desc"></rich-text>
+		</view>
+
+
+		<!-- 底部操作菜单 -->
+		<view class="page-bottom">
+			<navigator url="/hj_shop/pages/index/index" open-type="switchTab" class="p-b-btn">
+				<text class="yticon icon-xiatubiao--copy"></text>
+				<text>首页</text>
+			</navigator>
+			<navigator url="/hj_shop/pages/cart/cart" open-type="switchTab" class="p-b-btn">
+				<text class="yticon icon-gouwuche"></text>
+				<text>购物车</text>
+			</navigator>
+			<!-- <view class="p-b-btn" :class="{active: favorite}" click="ToFavorite">
+					<text class="yticon icon-shoucang"></text>
+					<text>收藏</text>
+				</view> -->
+
+			<view class="action-btn-group">
+				<button type="primary" class=" action-btn no-border add-cart-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
+				 data-productid="{{item.id}}" bindtap="Tocart">购物车</button>
+				<button type="primary" class=" action-btn no-border buy-now-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
+				 wx:key="item.id" data-productid="{{item.id}}" bindtap="Tobuy">立即购买</button>
+			</view>
+		</view>
+
+	</view>
+</view>
