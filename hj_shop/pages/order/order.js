@@ -4,10 +4,12 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		userid: '',
+		openid: '',
 		orderinfo: [],
 		order_num: '',
 		total_price: '',
+		text:'',
+		
 		orders: [],
 		address: {},
 		hasAddress: false
@@ -26,23 +28,120 @@ Page({
 			orders: orderinfo
 		})
 	},
+	
+	/* 获取留言信息 */
+  bindKeyInput:function(e){
+	 // console.log(e)
+	  this.setData({
+	        inputValue: e.detail.value
+	      })
+  },
 
+   Addaddress:function(){
+	   var that = this;
+	   if (!that.data.hasAddress) {
+	   	// 获取地址信息
+	   	wx.chooseAddress({
+	   		success: res => {
+	   			this.setData({
+	   				address: res
+	   			})
+	   		}
+	   	})
+	   
+	   } else {
+	   	 wx.showModal({
+			 title:'请添加送货地址'
+		 })
+	   }
+   },
 
-	ToPay: function() {
+     // 清空购物车数据
+     //wx.removeStorageSync('shopCarInfo');
+
+	ToPay: function(e) {
 		var that = this;
-		if (!that.data.hasAddress) {
-			// 获取地址信息
-			wx.chooseAddress({
-				success: res => {
-					this.setData({
-						address: res
-					})
-				}
-			})
-
-		} else {
-			console.log('zhifu')
-		}
+		var address = this.data.address;  //获取地址信息	
+		var text = this.data.inputValue;   //获取用户留言信息
+		var openid = wx.getStorageSync('userid'); 
+				
+		var order_num = this.data.order_num;
+		var total_price = this.data.total_price;
+		var orders = this.data.orders;
+		  var title = '总计';
+		
+		 var app = getApp();
+       if('openid'){	   
+		   wx.showModal({
+		    title: '提示',			
+		    content: '是否进行微信支付？全部结算金额为：' + total_price+'元',
+		    success: function (res) {			
+		      if (res.confirm) {
+		   	   app.util.request({
+		   	    'url': 'entry/wxapp/Pay', //调用wxapp.php中的doPagePay方法获取支付参数
+		   	    data: {
+		   	       price:total_price,
+		   	       title:title											 
+		   	    },
+		   	    'cachetime': '0',
+		            success(res) {	
+						//console.log(res)
+		               if (res.data && res.data.data && !res.data.errno) {
+		                   //发起支付
+		                   wx.requestPayment({
+		                       'timeStamp': res.data.data.timeStamp,
+		                       'nonceStr': res.data.data.nonceStr,
+		                       'package': res.data.data.package,
+		                       'signType': 'MD5',
+		                       'paySign': res.data.data.paySign,
+		                       'success': function (res) {
+		                           //执行支付成功提示
+		   					     console.log('支付成功')	
+								//清除购物车信息 
+								//wx.removeStorageSync('cart');		
+		   						 	 that.setData({
+		   						 	    //iscart: false,
+		   								//icon:[],
+										order_num:'',
+		   						 	     orders:[],
+										 total_price:''
+		   													   
+		   						 	}); 		   							
+		           				 wx.switchTab({//接着跳到购物车页
+		           						url: "../cart/cart",
+		           					  }); 															//console.log(res)																	
+		                       },
+		           								
+		   					  'fail': function (res) {
+		   					  //  backApp()
+		   					},
+		   												 
+		   					})	
+		   					}
+		   					},
+		   						 fail(res) {
+		   						     wx.showModal({
+		   						         title: '系统提示',
+		   						         content: res.data.message ? res.data.message : '错误',
+		   						         showCancel: false,
+		   						         success: function (res) {
+		   						             if (res.confirm) {
+		   						               // backApp()											   
+		   						             }
+		   						         }
+		   						     })
+		   						 }								 
+		   					})	
+		   				}
+		   			}
+		        })
+				wx.removeStorageSync('cart');		   
+	   }else{
+		   wx.reLaunch({
+			   url:"../login/login"
+		   })
+	   }
+		
 	},
 
 	/**

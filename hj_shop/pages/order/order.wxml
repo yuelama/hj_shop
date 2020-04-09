@@ -9,7 +9,7 @@
 			{{address.detailInfo}}</view>
 		<!-- <view class="order-address-detail">备注: {{address.message}}</view> -->
 	</view>
-	<!-- <view wx:else class="order-no-address">添加收货地址</view> -->
+	<view wx:else class="order-no-address" bindtap="Addaddress">添加收货地址</view>
 	<!--  </navigator> -->
 	<view class="goods-list">
 		<view class="list-title">商品列表</view>
@@ -32,14 +32,22 @@
 
 	<view class="row-box">
 		<view class="row-label">买家留言：</view>
-		<view style="height:100px;">
-			<input name="remark" type="text" style="background:Gainsboro;height:60px; margin:1%;"  adjust-position="true"  placeholder="如需留言，请输入" />
-		</view>
+		<!-- <view style="height:100px;">
+			<input name="remark"  type="text" style="background:Gainsboro;height:60px; margin:1%;"  adjust-position="true"  placeholder="如需留言，请输入" />
+		</view> -->
+		
+		<view  style="height: 100px;">
+		        <input style="background:Gainsboro;height:60px; margin:1%;" maxlength="190" bindinput="bindKeyInput" placeholder="如需留言,请输入"/>
+		 </view>
+		
+		
 	</view>	
 
-	<view class="order-footer">
-		<view class="order-footer-total">付款合计：￥{{total_price}}</view>
-		<view class="order-footer-btn" bindtap="ToPay">去付款</view>
-	</view>
+	
 	</form>
+	
+	<view  class="order-footer">
+		<view class="order-footer-total">付款合计：￥{{total_price}}</view>
+		<view class="order-footer-btn" data-order="{{orders}}" bindtap="ToPay">去付款</view>
+	</view>
 </view>

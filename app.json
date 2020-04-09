@@ -3,7 +3,6 @@
     "hj_shop/pages/index/index",
     "hj_shop/pages/cart/cart",
     "hj_shop/pages/order/order",
-   
    "hj_shop/pages/login/login",
     "hj_shop/pages/catelist/catelist",
     "hj_shop/pages/productdetail/productdetail",
