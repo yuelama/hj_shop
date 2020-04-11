@@ -33,9 +33,9 @@ Page({
       var _self = this;
       // 获取产品展示页保存的缓存数据（购物车的缓存数组，没有数据，则赋予一个空数组）
       var arr = wx.getStorageSync('cart') || [];		
-      	console.log(arr)
+      	//console.log(arr)
       // 有数据的话，就遍历数据，计算总金额 和 总数量
-      if (arr.length > -1) {
+      if (arr.length > 0) {
           for (var i in arr) {
              _self.data.total += (arr[i].price) * (arr[i].product_num);  //获取购物车商品总价格				
               _self.data.goodsCount += (arr[i].product_num);    		

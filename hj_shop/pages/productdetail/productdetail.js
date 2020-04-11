@@ -15,8 +15,14 @@ Page({
 	 
 	 productdetail:[],    //产品细节数据
 	 productid:'',
-	 payid:''
+	 payid:'',
 	 
+	 openid:'',
+	
+	  detail_price:'',
+	 detail_title:'',
+	  detail_num:'',
+	  detail_pic:''
   },
 
   /**
@@ -55,6 +61,7 @@ Tocart:function(event){
 					  //console.log("添加课程成功")
 					// this.joinT(); 
 					 this.joinT();
+					
 					/* */				
 			   this.data.productdetail[i].product_num = 1;
 				var arr = wx.getStorageSync('cart') || [];
@@ -66,9 +73,9 @@ Tocart:function(event){
 											 // 相等的话，给count+1（即再次添加入购物车，数量+1）
 	                      arr[j].product_num = arr[j].product_num + 1;
 												/* wx.switchTab({//接着跳到购物车页		 
-												 	url: "../cart/cart",
-												   });	 */																																																					
-																							
+												 	url: "/hj_shop/pages/cart/cart",
+												   })	 */																																																		
+																						
 						try {
 	                          wx.setStorageSync('cart', arr)
 	                      } catch (e) {
@@ -84,13 +91,13 @@ Tocart:function(event){
 			      
 	          // 购物车没有数据，把item项pu  sh放入当前数据（第一次存放时）
 	          else{
-	              arr.push(this.data.productdetail[i]);
+	              arr.push(this.data.productdetail[i]);			 
 	          }
 	          // 最后，把购物车数据，存放入缓存
 	          try {
 	              wx.setStorageSync('cart', arr)
 	              // 返回（在if内使用return，跳出循环节约运算，节约性能）
-	              return;
+	              return;	  
 	          } catch (e) {
 	              console.log(e)
 								
@@ -104,6 +111,40 @@ Tocart:function(event){
 	
 } */
 
+/* Tocar:function(){
+	wx.switchTab({
+		url:'/hj_shop/pages/cart/cart'
+	})
+} */
+Tobuy:function(event){
+	console.log(event)
+	var that = this;
+	
+	var openid = wx.getStorageSync('userid');
+	
+    if('openid'){
+
+	for (var i in this.data.productdetail){
+	  if(this.data.productdetail[i].id == event.currentTarget.dataset.productid){
+			var detail_price =  this.data.productdetail[i].price; 
+			var detail_title =   this.data.productdetail[i].product_name;
+	        var detail_num = this.data.productdetail[i].product_num;
+			var detail_pic = this.data.productdetail[i].img;
+		}	
+	 wx.navigateTo({
+	  url: '../detail_order/detail_order?detail_price=' + detail_price +'&detail_num=' + detail_num + '&detail_title=' + detail_title + '&detail_pic=' + detail_pic
+	}) 
+	
+	
+	}
+	
+	}else{
+		wx.switchTab({//请登录
+		  url: "/hj_shop/pages/login/login"
+		}) 				
+	}
+},
+
 
 joinF:function(){
     wx.showModal({
@@ -116,10 +157,10 @@ joinF:function(){
   joinT:function(){
 	  wx.showModal({
 	    title: '提示',
-	    content: '是否添加商品',
-		  url:'../../../cart/cart',
+	    content: '是否添加商品',	 
 	  })
-	},
+	 
+  },
 
 
   /**

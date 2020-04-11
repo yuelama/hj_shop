@@ -44,7 +44,7 @@
     <!--footer-->
     <view class="total">
         <view class="total_text">合计：<text>￥{{total}}</text></view>
-        <button class="total_js" size="mini" data-cart="{{cart}}"  data-total="{{total}}"
+        <button class="total_js" size="mini"  data-total="{{total}}"
 		 data-count="{{goodsCount}}"  bindtap="Tooder">去结算({{goodsCount}})</button>
 		 
 		 <!-- <view class="total_js"  data-cart="{{cart}}"  data-total="{{total}}"

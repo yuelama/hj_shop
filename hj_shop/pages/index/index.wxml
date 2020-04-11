@@ -28,7 +28,7 @@
   <view class="app-moduler"  wx:for="{{products}}" wx:key="item.id" data-productid="{{item.id}}"
 	class="mod-item" bindtap='Toproductdetail'> 
       <view class="mod-signup">
-        <image src="{{signupimg}}"></image>
+        <image src="{{item.img}}"></image>
       </view>
       <view class="mod-img">
         <image src="{{item.img}}" class="mod-image"></image>
@@ -53,7 +53,7 @@
  <view class="app-moduler"  wx:for="{{products}}" wx:key="item.id" data-productid="{{item.id}}"
  	class="mod-item" bindtap='Toproductdetail'> 
        <view class="mod-signup">
-         <image src="{{signupimg}}"></image>
+         <image src="{{item.img}}"></image>
        </view>
        <view class="mod-img">
          <image src="{{item.img}}" class="mod-image"></image>
@@ -78,7 +78,7 @@
   <view class="app-moduler"  wx:for="{{products}}" wx:key="item.id" data-productid="{{item.id}}"
   	class="mod-item" bindtap='Toproductdetail'> 
         <view class="mod-signup">
-          <image src="{{signupimg}}"></image>
+          <image src="{{item.img}}"></image>
         </view>
         <view class="mod-img">
           <image src="{{item.img}}" class="mod-image"></image>

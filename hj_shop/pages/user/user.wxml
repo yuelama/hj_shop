@@ -1,2 +1,37 @@
 <!--hj_shop/pages/user/user.wxml-->
-<text>hj_shop/pages/user/user.wxml</text>
+<view id="userhead" wx:for="{{userInfo}}" wx:key="{{item.id}}" bindlongtap="showUserTip" bindtap="showUserTip">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{item.headimg}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{item.nickname}}</text>
+  </view>
+</view>
+<view id="other">
+<!--  <view id='addr' style="background-image: url(../../image/temp/address.png);" bindtap="navigateToAddr">
+    我的地址
+  </view> -->
+
+  <view id='order'>
+    <view class='order-item' style="background-image: url(../../../images/temp/order.png); background-position:20rpx center" bindtap="navigateToOrder">
+      我的订单<text class='more'></text> 
+    </view>
+	<view class='order-item' style="background-image: url(../../../images/temp/need.png); background-position:20rpx center" bindtap="navigateToOrder_get">
+	  我的收藏<text class='more'></text> 
+	</view>
+	
+    <view class='order-item' style="background-image: url(../../../images/temp/jifen.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
+      我的积分<text class='more'></text> 
+    </view>
+	
+	<view class='order-item' style="background-image: url(../../../images/temp/server.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
+	  联系客服<text class='more'></text> 
+	</view>
+    
+	<view class='order-item' style="background-image: url(../../../images/temp/address.png); background-position:20rpx center" bindtap="navigateToOrder_get">
+	  地址管理<text class='more'></text> 
+	</view>
+	
+	<view class='order-item' style="background-image: url(../../../images/temp/aboutus.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
+	  关于我们<text class='more'></text> 
+	</view>
+  </view>
+</view>

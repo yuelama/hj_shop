@@ -1,11 +1,12 @@
 // hj_shop/pages/user/user.js
+let apps =getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userInfo:[]
   },
 
   /**
@@ -26,7 +27,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+     var _self = this
+     apps.util.request({
+       'url': 'entry/wxapp/Userinfo',
+       header: {
+         'content-type': 'application/json' // 默认值
+       },
+     /*  data: {
+           imgUrls: _self.data.items,
+       }, */
+       success(res) {
+     		   console.log(res)
+     		    var infodata = [];
+     		   				 for (var i = 0; i < 1; i++) {					
+     		   				   infodata[i] = res.data.data[i]
+     		   					
+     		   				 } 
+      //console.log(res)
+        _self.setData({
+          userInfo: infodata
+     		  
+        })
+      	   
+       }
+     })
+     			
   },
 
   /**

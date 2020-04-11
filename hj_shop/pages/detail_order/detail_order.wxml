@@ -1,7 +1,7 @@
-<!--hj_shop/pages/order/order.wxml-->
+<!--hj_shop/pages/detail_order/detail_order.wxml-->
 <view class="main">
 	<!-- <navigator url="../address/address"> -->
-	<form   >
+	<form>
 	<view wx:if="{{address.userName}}" class="order-address">
 		<text class="order-address-name">收货人: {{address.userName}}</text>
 		<view class="order-address-phone">电话: {{address.telNumber}}</view>
@@ -13,40 +13,37 @@
 	<!--  </navigator> -->
 	<view class="goods-list">
 		<view class="list-title">商品列表</view>
-		<view class="a-goods" wx:for-items="{{orders}}" wx:key="{{index}}">
+		<!-- <view class="a-goods" wx:for-items="{{orders}}" wx:key="{{index}}"> -->
+		<view class="a-goods">
 			<view class="img-box">
-				<image src="{{item.img}}" class="img" />
+				<image src="{{order_pic}}" class="img" />
 			</view>
 			<view class="text-box">
 				<view class="arow arow01">
-					<view class="goods-name">{{item.product_name}}</view>
-					<view class="goods-price">¥ {{item.price}}</view>
+					<view class="goods-name">{{order_title}}</view>
+					<view class="goods-price">¥ {{total_price}}</view>
 				</view>
 				<view class="arow">
-					<view class="goods-label">{{item.label}}</view>
-					<view class="goods-num">x {{item.product_num}}</view>
+					<!-- <view class="goods-label">{{item.label}}</view> -->
+					<view class="goods-num">x {{order_num}}</view>
 				</view>
 			</view>
 		</view>
 	</view>
-
-	<view class="row-box">
-		<view class="row-label">买家留言：</view>
-		<!-- <view style="height:100px;">
-			<input name="remark"  type="text" style="background:Gainsboro;height:60px; margin:1%;"  adjust-position="true"  placeholder="如需留言，请输入" />
-		</view> -->
-		
-		<view  style="height: 100px;">
-		        <input style="background:Gainsboro;height:60px; margin:1%;" maxlength="190" bindinput="bindKeyInput" placeholder="如需留言,请输入"/>
-		 </view>	
-	</view>	
-
-	
+	 
+	 <view class="row-box">
+	 	<view class="row-label">买家留言：</view>	 	
+	 	<view  style="height: 100px;">
+	 	        <input style="background:Gainsboro;height:60px; margin:1%;" maxlength="190" bindinput="bindKeyInput" placeholder="如需留言,请输入"/>
+	 	 </view>	
+	 </view>	
 	</form>
 	
 	  <view  class="order-footer">
 	  	<view class="order-footer-total">付款合计：￥{{total_price}}</view>
-	  	<view class="order-footer-btn" data-order="{{orders}}" bindtap="ToPay">去付款</view>
+	  	<view class="order-footer-btn"  bindtap="ToPay">去付款</view>
 	  </view>
 
 </view>
+
+	

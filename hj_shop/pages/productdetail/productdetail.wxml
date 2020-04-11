@@ -12,7 +12,6 @@
 <view class="clear"></view>
 <view class="appointment">
 	<!-- <view class="app-title">商品详情</view> -->
-
 	<view class="introduce-section" wx:for="{{productdetail}}">
 		<text class="title">{{item.product_name}}</text>
 		<view class="price-box">
@@ -28,7 +27,6 @@
 		</view>
 
 		<!--  分享 -->
-
 		<view class="share-section" click="share">
 			<view class="share-icon">
 				<text class="yticon icon-xingxing"></text>
@@ -41,7 +39,6 @@
 				<text class="yticon icon-you"></text>
 			</view>
 		</view>
-
 		<view class="clear"></view>
 		<view class="c-list">
 			<view class="c-row b-b" click="toggleSpec">
@@ -116,13 +113,13 @@
 		</view>
 
 
-		<!-- 底部操作菜单 -->
+		<!-- 底部操作菜单 open-type="reLaunch" -->
 		<view class="page-bottom">
-			<navigator url="/hj_shop/pages/index/index" open-type="switchTab" class="p-b-btn">
+			<navigator url="/hj_shop/pages/index/index" open-type="reLaunch" class="p-b-btn">
 				<text class="yticon icon-xiatubiao--copy"></text>
 				<text>首页</text>
 			</navigator>
-			<navigator url="/hj_shop/pages/cart/cart" open-type="switchTab" class="p-b-btn">
+			<navigator url="/hj_shop/pages/cart/cart" open-type="reLaunch"  class="p-b-btn">
 				<text class="yticon icon-gouwuche"></text>
 				<text>购物车</text>
 			</navigator>
@@ -133,7 +130,7 @@
 
 			<view class="action-btn-group">
 				<button type="primary" class=" action-btn no-border add-cart-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
-				 data-productid="{{item.id}}" bindtap="Tocart">购物车</button>
+				 data-productid="{{item.id}}" bindtap="Tocart">添加购物车</button>
 				<button type="primary" class=" action-btn no-border buy-now-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
 				 wx:key="item.id" data-productid="{{item.id}}" bindtap="Tobuy">立即购买</button>
 			</view>
