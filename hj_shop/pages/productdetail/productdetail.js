@@ -51,6 +51,19 @@ Page({
 	  })
   },
 
+openAddress: function () {
+    let that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        if(!res.address){
+          return;
+        }
+        that.setData({
+          'deliveryAddress.address': res.address
+        })
+      },
+    })
+  },
 
 Tocart:function(event){
 	this.setData({
@@ -58,11 +71,8 @@ Tocart:function(event){
 	      });
 	for (var i in this.data.productdetail){
 			  if(this.data.productdetail[i].id == event.currentTarget.dataset.productid){
-					  //console.log("添加课程成功")
-					// this.joinT(); 
 					 this.joinT();
-					
-					/* */				
+												 
 			   this.data.productdetail[i].product_num = 1;
 				var arr = wx.getStorageSync('cart') || [];
 				 if(arr.length>0){

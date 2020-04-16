@@ -11,27 +11,60 @@
   </view> -->
 
   <view id='order'>
-    <view class='order-item' style="background-image: url(../../../images/temp/order.png); background-position:20rpx center" bindtap="navigateToOrder">
-      我的订单<text class='more'></text> 
+    <view class="order-wrap">
+      <view class="order-header">
+        <text class="txt">我的订单</text>
+        <view class="right" id="0" bindtap="toOrder">
+          <text class="all">查看全部</text>
+          <image class="arrow" src="/images/temp/rightArrow.png"></image>
+        </view>
+      </view>
+      <view class="order-icon">
+        <view class="icon-wrap" id="1" bindtap="toOrder">
+          <i-badge count="{{order.pay}}">
+            <image class="icon" src="/images/temp/pay.png"></image>
+          </i-badge>
+          <text class="txt">待付款</text>
+        </view>
+        <view class="icon-wrap" id="2" bindtap="toOrder">
+          <i-badge count="{{order.toSend}}">
+            <image class="icon" src="/images/temp/toSend.png"></image>
+          </i-badge>
+          <text class="txt">待发货</text>
+        </view>
+        <view class="icon-wrap" id="3" bindtap="toOrder">
+          <i-badge count="{{order.send}}">
+            <image class="icon" src="/images/temp/send.png"></image>
+          </i-badge>
+          <text class="txt">已发货</text>
+        </view>
+        <view class="icon-wrap" id="4" bindtap="toOrder">
+          <i-badge count="{{order.comment}}">
+            <image class="icon" src="/images/temp/comment.png"></image>
+          </i-badge>
+          <text class="txt">待评价</text>
+        </view>
+        <view class="icon-wrap">
+          <i-badge count="{{order.afterSale}}">
+            <image class="icon" src="/images/temp/afterSale.png"></image>
+          </i-badge>
+          <text class="txt">退换/售后</text>
+        </view>
+      </view>
     </view>
-	<view class='order-item' style="background-image: url(../../../images/temp/need.png); background-position:20rpx center" bindtap="navigateToOrder_get">
-	  我的收藏<text class='more'></text> 
-	</view>
 	
-    <view class='order-item' style="background-image: url(../../../images/temp/jifen.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
-      我的积分<text class='more'></text> 
-    </view>
-	
-	<view class='order-item' style="background-image: url(../../../images/temp/server.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
-	  联系客服<text class='more'></text> 
-	</view>
-    
 	<view class='order-item' style="background-image: url(../../../images/temp/address.png); background-position:20rpx center" bindtap="navigateToOrder_get">
 	  地址管理<text class='more'></text> 
 	</view>
 	
-	<view class='order-item' style="background-image: url(../../../images/temp/aboutus.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
+    <view class='order-item' style="background-image: url(../../../images/temp/coupon.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
+      领券中心<text class='more'></text> 
+    </view>
+	
+	<view class='order-item' style="background-image: url(../../../images/temp/feedback.png); background-position:20rpx center" bindtap="navigateToOrder_pay">
 	  关于我们<text class='more'></text> 
 	</view>
+	
+	
   </view>
 </view>

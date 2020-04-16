@@ -160,22 +160,9 @@
 	}		
 	
 
+
+
 	
-			
-	/* $uni-color-primary:#fa436a;	 */
-		/* 文字尺寸 */
-	/* $font-sm: 24rpx;
-	$font-base: 28rpx;
-	$font-lg: 32rpx; */
-	
-	/*文字颜色*/
-	/* $font-color-dark: #303133;
-	$font-color-base: #606266;
-	$font-color-light: #909399;
-	$font-color-disabled: #C0C4CC;
-	$font-color-spec: #4399fc; */
-	
-/* 课程选择 */	
 	
 .c-list{
 		font-size: 26rpx;
@@ -371,12 +358,12 @@
 	.page-bottom{
 		position:fixed;
 		left: 10rpx;
-		bottom:30rpx;
+		bottom:10rpx;
 		z-index: 95;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 710rpx;
+		width: 720rpx;
 		height: 100rpx;
 		background: rgba(255,255,255,.9);
 		box-shadow: 0 0 20rpx 0 rgba(0,0,0,.5);
@@ -390,11 +377,9 @@
 			justify-content: center;
 			font-size:24rpx;
 			color: #606266;
-			width: 110rpx;
+			width: 120rpx;
 			height: 80rpx;
-			}
-			
-			
+			}			
 			.icon-fenxiang2{
 				font-size: 42rpx;
 				transform: translateY(-2rpx);
@@ -408,17 +393,22 @@
 			height: 76rpx;
 			border-radius: 100px;
 			overflow: hidden;
-			box-shadow: 0 20rpx 40rpx -16rpx #fa436a;
+			box-shadow: 0 20rpx 30rpx -16rpx #fa436a;
 			box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
 			background: linear-gradient(to right, #ffac30,#fa436a,#F56C6C);
-			margin-left: 25rpx;
+			margin-left: 20rpx;
 			position:relative;
 			}
+			
+		.action-btn-group .active{
+			 background: #ebebeb;
+		}	
+			
 			.action-btn{
 				display:flex;
 				align-items: center;
 				justify-content: center;
-				width: 120rpx;
+				width: 70rpx;
 				height: 100%;
 				font-size: 28rpx ;
 				padding: 0;

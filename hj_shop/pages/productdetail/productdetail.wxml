@@ -65,17 +65,17 @@
 			<view class="c-row b-b">
 				<text class="tit">促销活动</text>
 				<view class="con-list">
-					<text>新人首单送20元无门槛代金券</text>
+					<text>新人首单送100元无门槛代金券</text>
 					<text>订单满50减10</text>
 					<text>订单满100减30</text>
-					<text>单笔购买满两件免邮费</text>
+					<text>单笔购买满3斤免运费</text>
 				</view>
 			</view>
 			<view class="c-row b-b">
 				<text class="tit">服务</text>
 				<view class="bz-list con">
-					<text>免费提供wifi茶水 ·</text>
-					<text>一对一服务 ·</text>
+					<text>满49免费送货上门 ·</text>
+					<text>只供基地种植新鲜花椒 ·</text>
 				</view>
 			</view>
 		</view>
@@ -96,10 +96,10 @@
 				<image class="portrait" src="{{item.img}}" mode="aspectFill"></image>
 				<view class="right">
 					<text class="name" style="font-size:20rpx;margin-left:20rpx;">Leo yo</text>
-					<text class="con" style="font-size:22rpx;margin-left:20rpx;margin-top:10rpx;">商品收到了，79元两件，质量不错，试了一下有点瘦，但是加个外罩很漂亮，我很喜欢</text>
+					<text class="con" style="font-size:22rpx;margin-left:10rpx;margin-top:10rpx;">商品收到了，口感不错，颗粒饱满很新鲜，顾客很喜欢</text>
 					<view class="bot">
-						<text class="attr" style="font-size: 20rpx;margin-top:50rpx;">购买类型：XL 红色</text>
-						<text class="attr" style="font-size: 20rpx;margin-left:160rpx;">2019-04-01 19:21</text>
+						<text class="attr" style="font-size: 20rpx;margin-top:50rpx;">购买类型：500克 青花椒</text>
+						<text class="attr" style="font-size: 20rpx;margin-left:130rpx;">2020-04-01 19:21</text>
 					</view>
 				</view>
 			</view>
@@ -116,22 +116,28 @@
 		<!-- 底部操作菜单 open-type="reLaunch" -->
 		<view class="page-bottom">
 			<navigator url="/hj_shop/pages/index/index" open-type="reLaunch" class="p-b-btn">
-				<text class="yticon icon-xiatubiao--copy"></text>
+				<text class="icon-index"></text>
 				<text>首页</text>
 			</navigator>
+      	  
 			<navigator url="/hj_shop/pages/cart/cart" open-type="reLaunch"  class="p-b-btn">
-				<text class="yticon icon-gouwuche"></text>
+				<text class="icon-gouwuche"></text>
 				<text>购物车</text>
 			</navigator>
+			
+			<view class="p-b-btn">
+				<contact-button ></contact-button>
+				 <text style="font-size:24rpx;color: #606266;bottom:10rpx;">客服</text>												
+			</view>
 			<!-- <view class="p-b-btn" :class="{active: favorite}" click="ToFavorite">
 					<text class="yticon icon-shoucang"></text>
 					<text>收藏</text>
 				</view> -->
 
 			<view class="action-btn-group">
-				<button type="primary" class=" action-btn no-border add-cart-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
+				<button type="primary" hover-class="active"  class=" action-btn no-border add-cart-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
 				 data-productid="{{item.id}}" bindtap="Tocart">添加购物车</button>
-				<button type="primary" class=" action-btn no-border buy-now-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
+				<button type="primary" hover-class="active"  class=" action-btn no-border buy-now-btn" style="font-size:26rpx; background:linear-gradient(to right, #ffac30,#fa436a,#F56C6C);"
 				 wx:key="item.id" data-productid="{{item.id}}" bindtap="Tobuy">立即购买</button>
 			</view>
 		</view>

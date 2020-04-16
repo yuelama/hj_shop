@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo:[]
+    userInfo:[],
+	 isLogin: false,
   },
 
   /**
@@ -52,6 +53,43 @@ Page({
        }
      })
      			
+  },
+  
+Login: function () {
+    if (!this.data.isLogin) {
+      wx.navigateTo({
+        url: '/hj_shop/pages/login/login',
+      })
+    }
+  },
+  
+ checkLogin: function () {
+    if (!this.data.isLogin) {
+      wx.navigateTo({
+        url: '/hj_shop/pages/login/login',
+      })
+    }
+  },  
+  
+
+toOrder: function (e) {
+   // this.checkLogin();
+    let type = e.currentTarget.id;
+    wx.navigateTo({
+      url: '/hj_shop/pages/order/order?type=' + type,
+    })
+  },
+  toAddress: function () {
+   // this.checkLogin();
+    wx.navigateTo({
+      url: '/hj_shop/pages/address/address'
+    })
+  },
+  toCoupon: function () {
+  //  this.checkLogin();
+    wx.navigateTo({
+      url: '/hj_shop/pages/coupon/coupon'
+    })
   },
 
   /**

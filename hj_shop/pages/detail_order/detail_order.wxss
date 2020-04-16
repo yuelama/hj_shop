@@ -4,6 +4,11 @@
 	background-color: #f2f2f2;
 } */
 
+/* .order-address .r image {
+  width: 16rpx;
+  height: 27rpx;
+} */
+
 .order-address{
     position: relative;
     padding: 20rpx 50rpx 20rpx 35rpx;
