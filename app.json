@@ -1,13 +1,24 @@
 {
   "pages": [
-    "hj_shop/pages/index/index",
+    "hj_shop/pages/test_toast/test_toast",
+	  "hj_shop/pages/index/index",
+      
+     
+     "hj_shop/pages/checkout/checkout",
+	   "hj_shop/pages/comment/comment",
+    	"hj_shop/pages/vip/vip",
+       "hj_shop/pages/promotion/promotion",
+     "hj_shop/lib/vant-weapp/toast/toast",
+    
     "hj_shop/pages/login/login",
    
     "hj_shop/pages/cart/cart",
     "hj_shop/pages/order/order",
-  
-    "hj_shop/pages/catelist/catelist",
+
     "hj_shop/pages/productdetail/productdetail",
+
+    "hj_shop/pages/catelist/catelist",
+   
     "hj_shop/pages/address/address",
      "hj_shop/pages/detail_order/detail_order",
     "hj_shop/pages/user/user"
@@ -48,7 +59,38 @@
     "request": 10000,
     "downloadFile": 10000
   },
-  "debug": true,
-  "style": "v2",
+  "usingComponents": {
+    "van-button": "lib/vant-weapp/button/index",
+    "van-dialog": "lib/vant-weapp/dialog/index",
+    "van-field": "lib/vant-weapp/field/index",
+    "van-tab": "lib/vant-weapp/tab/index",
+    "van-tabs": "lib/vant-weapp/tabs/index",
+    "van-loading": "lib/vant-weapp/loading/index",
+    "van-checkbox": "lib/vant-weapp/checkbox/index",
+    "van-icon": "lib/vant-weapp/icon/index",
+    "van-search": "lib/vant-weapp/search/index",
+    "van-toast": "lib/vant-weapp/toast/index",
+    
+	
+    "van-tag": "lib/vant-weapp/tag/index",
+    "van-cell": "lib/vant-weapp/cell/index",
+    "van-cell-group": "lib/vant-weapp/cell-group/index",
+    "van-popup": "lib/vant-weapp/popup/index",
+    "van-area": "lib/vant-weapp/area/index",
+    "van-steps": "lib/vant-weapp/steps/index",
+    "van-switch": "lib/vant-weapp/switch/index",
+    "wux-toptips": "lib/wux-weapp/toptips/index",
+    "wux-filterbar": "lib/wux-weapp/filterbar/index",
+    "wux-upload": "lib/wux-weapp/upload/index",
+    "i-icon": "lib/iview-weapp/icon/index",
+    "i-badge": "lib/iview-weapp/badge/index",
+    "i-input-number": "lib/iview-weapp/input-number/index",
+    "i-swipeout": "lib/iview-weapp/swipeout/index",
+    "i-avatar": "lib/iview-weapp/avatar/index",
+	
+	
+    "i-rate": "lib/iview-weapp/rate/index"
+  },
+
   "sitemapLocation": "sitemap.json"
 }
