@@ -36,6 +36,18 @@
       </view>
       <van-icon class="arrow-icon" color="rgb(170, 170, 170)" name="arrow" size="18px" />
     </view>
+	
+	<view class="attr-wrap" hover-class="active" bindtap="openCoupon" wx:if="{{productdetail.promotion==1}}">
+	  <view class="attr">
+	    <view class="left">
+	      <text class="title">领劵</text>
+	      <van-tag color="#f2826a" plain wx:for="{{couponList}}" wx:key="{{item.id}}">{{item.title}}</van-tag>
+	    </view>
+	    <image class="arrow" src="/images/temp/rightArrow.png"></image>
+	  </view>
+	</view>
+	
+	
   </view>
 
   <view class="vip-banner" bindtap="toVip">
@@ -51,27 +63,9 @@
   </view>
 </view>
 
-<view class="attr-wrap" hover-class="active" data-id="{{weigt_id}}" bindtap="showSku">
-  <view class="attr">
-    <view class="left">
-      <text class="title">{{specText ? '已选' : '请选择数量规格'}}</text>
-      <text class="txt">{{specText ? specText : ''}}</text>
-    </view>
-    <image class="arrow" src="/images/temp/rightArrow.png"></image>
-  </view>
-</view>
 
-<view class="attr-wrap" hover-class="active" bindtap="openCoupon" wx:if="{{product.promotion==2}}">
-  <view class="attr">
-    <view class="left">
-      <text class="title">领劵</text>
-      <van-tag color="#f2826a" plain wx:for="{{couponList}}" wx:key="{{item.id}}">{{item.title}}</van-tag>
-    </view>
-    <image class="arrow" src="/images/temp/rightArrow.png"></image>
-  </view>
-</view>
 
-<view class="attr-wrap" wx:if="{{product.promotion==1}}">
+<view class="attr-wrap" wx:if="{{productdetail.promotion==1}}">
   <view class="attr">
     <view class="left">
       <text class="title">限制</text>
@@ -108,10 +102,10 @@
 </view>
 
 <!-- 详情 -->
-<!-- <view class="detail">
+<view class="detail">
   <template is="wxParse" data="{{wxParseData:item.product_content.nodes}}" />
-</view> -->
-
+<!-- <rich-text :nodes="desc"></rich-text> -->
+</view>
 <!-- 底部按钮 -->
  <view class="bottom">
   <view class="b-wrap collect" hover-class="active" bindtap="openIndexPage">
@@ -128,8 +122,8 @@
     <van-icon custom-class="icon-info" name="shopping-cart-o" info="{{cartList.length>0 ? cartList.length:''}}" color="#777" size="20px" />
 	<!-- <text style="font-size: 20rpx;">购物车</text> -->
   </view>
-  <view class="buy" hover-class="active" bindtap="buyNow">立即购买</view>
-  <view class="add-cart" hover-class="active" bindtap="addToCart">加入购物车</view>
+  <view class="buy" hover-class="active" wx:key="item.id" data-productid="{{item.id}}" bindtap="buyNow">立即购买</view>
+  <view class="add-cart" hover-class="active" data-productid="{{item.id}}" bindtap="addToCart">加入购物车</view>
 </view> 
 
 <!-- 优惠券选择 -->
@@ -157,38 +151,4 @@
   </view>
 </van-popup>
 
-<!-- 商品规格选择 -->
-<van-popup show="{{show}}" position="bottom" bind:close="closeSku"  >
-  <view class="sku">
-    <!-- 关闭图标 -->
-    <van-icon name="cross" color="#999" class="close" bindtap="closeSku" />
-    <!-- 图片标价 -->
-    <view class="info">
-     <image class="img" src="{{productdetail.img}}"  bindtap="previewThumb"></image>
-	  <!-- <image class="img" src="{{product.picUrl}}"  bindtap="previewThumb"></image> -->
-      <view class="sku-desc">
-        <van-tag wx:if="{{product.promotion==1}}" color="#f48f18" style="margin-bottom: 10rpx">限时购</van-tag>
-        <view class="price">价格：￥{{productdetail.price}}
-          <view class="origin-price">￥{{productdetail.market_price}}</view>
-        </view>
-        <view class="spec" wx:if="{{!noneSku}}">{{specText ? '已选择:'+specText : '请选择规格属性'}}</view>
-      </view>
-	  
-    </view>
-	
-    <view wx:for="{{skuinfo}}" wx:key="{{index}}" data-value="{{item}}">
-      <view class="title">{{kname}}</view>
-    <view class="wrap">
-        <view class="value {{iitem.selected ? 'selected':''}} {{iitem.disabled ? 'disabled':''}}" wx:for="{{item.kweigt}}" wx:for-item="iitem" wx:for-index="iindex" wx:key="{{iindex}}" data-index="{{index}}" 
-    	data-iindex="{{iindex}}" data-k="{{item}}" data-value="{{iitem}}"
-          bindtap="selectSku">{{kweigt}}</view>
-      </view>
-    </view>
 
-    <view class="title ">数量</view>
-    <i-input-number value="{{ count }} " min="1 " max="{{quota}}" bindchange="changeCount" />
-    <view style="width: 1rpx;"></view>
-  </view>
-</van-popup>
-
-<van-toast id="van-toast" />

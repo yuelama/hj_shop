@@ -11,12 +11,10 @@ Page({
 		autoplay: true,
 		interval: 5000,
 		duration: 1000,
-		bandetail: [], //轮播图片数据
-		viewpic:'',
+		bandetail: [], //轮播图片数据		
 		
-		k:[],
-		skuinfo:[],
-		sku_id:'',
+		viewpic:'',
+
 		//判断部分
 		//isLogin: false,
 		couponShow: false,
@@ -33,6 +31,7 @@ Page({
 		detail_num: '',
 		detail_pic: '',
 		preview_img:"",
+		
 		tags: [{
 		  id: 1,
 		  title: "种植基地新出品种"
@@ -42,24 +41,23 @@ Page({
 		  title: "最近热销品种"
 		}
 		],
-	
-	  kweigt:[],
-	  
-	  show: false, // 显示属性规格
-	  noneSku: false, // 有无规格选择
-	  quota: 100, // 限购数量
-	  productId: 1, // 商品id
-	  picUrl: "", // 当前选择图片
-	  specText: "", // 所选规格属性
-	  specTextNoCount: "", // 所选规格属性 无数量
-	 
-	  // 选择的 sku 组合
-	  selectedSku: {
-	  },
-	  count: 1 // 选择的商品数量
-	
-	
 		
+		couponList: [
+		  {
+		    id: '2',
+		    title: '30元直减劵',
+		    time: '2020.06.01-2020.08.30',
+		    description: '青花椒类专享；限时购等详情页标注不可用券的商品除外不可用券的商品除外',
+		    discount: 60, //折扣金额 -1代表全部
+		    disabled: false,
+		    showAll: false,
+		    selected: false,
+		    get: false,
+		    mode: "get",
+		    status: 0 // 0未使用 1已使用 2已失效
+		  }
+		]
+			
 	},
 		
 	/**
@@ -89,7 +87,7 @@ Page({
 			}
 
 		})
-		this.skudata();
+		
 	},
 
 /**
@@ -100,42 +98,7 @@ Page({
       
 	},
 
-// 获取初始化商品规格配置数据信息
-skudata:function(e){
-	//console.log(e)
-	var that = this;
-	  var sku_id = this.data.productid;
-	//console.log(sku_id) 	
-	apps.util.request({
-		'url': 'entry/wxapp/weigt',
-		header: {
-			'content-type': 'application/json'
-		},
-		data: {
-			id: sku_id,
-		}, 
-		success(res) {
-			console.log(res)
-			var k=[];
-			for(var i=0;i<res.data.data.weigtdatas.length;i++){
-				k[i] = res.data.data.weigtdatas[i]
-			}
-			
-			 var v = [];
-			for(var j=0;j<res.data.data.weigtdatas.length;j++){
-				v[j] = res.data.data.weigtdatas[j].weigt
-			} 
-			console.log(k)
-			 that.setData({
-				skuinfo: k,
-				kname:k[0].weigt_name,
-				kweigt:v
-			})
-		}
-	
-	})
-	 
- }, 
+
 
   openCoupon: function () {
     this.setData({
@@ -174,28 +137,6 @@ skudata:function(e){
      serviceShow: false
    })
  },
-
- previewThumb: function (e) {
-	//console.log(e)	
-   var viewpic = this.data.productdetail[0].img;
-  // console.log(viewpic)
- wx.previewImage({
-      current: viewpic,
-      urls: [viewpic]
-    }) 
-  },
-
-showSku: function (e) {
-	
-    this.setData({
-      'show': true
-    })
-  },
-  closeSku: function (e) {
-    this.setData({
-      'show': false
-    })
-  },
   
   clickTag: function (e) {
     let v = e.currentTarget.dataset.value;
@@ -203,7 +144,6 @@ showSku: function (e) {
       url: '/hj_shop/pages/promotion/promotion?id=' + v.id + '&title=' + v.title
     });
   },
-  
   
   toComment: function () {
     wx.navigateTo({
@@ -216,207 +156,9 @@ showSku: function (e) {
       url: '/hj_shop/pages/vip/vip',
     })
   },
-
- 
-  /* 选择购买份量 规格 */
-  selectSku: function (e) {
-    /* let k = e.currentTarget.dataset.k;
-    let v = e.currentTarget.dataset.value;
-    let index = e.currentTarget.dataset.index;
-    let iindex = e.currentTarget.dataset.iindex; */
-	
-	//console.log(options)	
-    if (this.data.tree[index].v[iindex].disabled) {
-      return;
-    }
-    // 勾选或反选 设置属性
-    if (!this.data.tree[index].v[iindex].selected) {
-      // 勾选 记录
-      let s = 'selectedSku.' + k.ks;
-      this.setData({
-        [s]: v.id
-      });
-    } else {
-      // 反选 删除值
-      let s = 'selectedSku.' + k.ks;
-      this.setData({
-        [s]: ''
-      });
-    } 	
-    this.setData({
-      [`tree[${index}].v[${iindex}].selected`]: !this.data.tree[index].v[iindex].selected
-    });
-    // 排除该组其他已选项
-    let vList = this.data.tree[index].v;
-    for (let i = 0; i < vList.length; i++) {
-      if (vList[i].id != v.id) {
-        this.setData({
-          [`tree[${index}].v[${i}].selected`]: false
-        })
-      }
-    }
-    this.judgeAllItem();
-    // 修改属性图片
-    if (index == 0) {
-	  this.setData({
-	    'product.picUrl': this.data.tree[0].v[iindex].picUrl
-	  })
-    }
-    // 修改选择商品价格信息
-    if (this.isAllSelected()) {
-      let skuComb = this.getSkuComb();
-      this.setData({
-        'product.price': skuComb.price
-      })
-    } else {
-      // 恢复默认价格
-      this.setData({
-        'product.price': this.data.product.defaultPrice
-      })
-    }
-  },
-
-
-
-// 循环判断所有属性是否可选
-  judgeAllItem: function () {
-    // 判断库存
-    let tree = this.data.tree;
-    for (let i = 0; i < tree.length; i++) {
-      let v = tree[i].v;
-      for (let j = 0; j < v.length; j++) {
-        if (this.isSkuChoosable(tree[i].ks, v[j].id)) {
-          // 可点击
-          this.setData({
-            [`tree[${i}].v[${j}].disabled`]: false
-          })
-        } else {
-          // 不可点击
-          this.setData({
-            [`tree[${i}].v[${j}].disabled`]: true
-          })
-        }
-      }
-    }
-    this.getSelectedText();
-  },
-
-
-
-isSkuChoosable: function (ks, vId) {
-
-    let selectedSku = this.data.selectedSku;
-    let list = this.data.list;
-
-    // 先假设sku已选中，拼入已选中sku对象中
-    let matchedSku = Object.assign({}, selectedSku, {
-      [ks]: vId
-    });
-
-    // 再判断剩余sku是否全部不可选，若不可选则当前sku不可选中
-    let skusToCheck = Object.keys(matchedSku).filter(
-      skuKey => matchedSku[skuKey] != ''
-    );
-
-    let filteredSku = list.filter(sku => (
-      skusToCheck.every(
-        skuKey => String(matchedSku[skuKey]) == String(sku[skuKey])
-      )
-    ));
-
-    let stock = filteredSku.reduce((total, sku) => {
-      total += stockNum;
-      return total;
-    }, 0);
-    return stock > 0;
-  },
-  
-  // 是否所有规格已选
-  isAllSelected: function () {
-    let selectedSku = this.data.selectedSku;
-    let selected = Object.keys(selectedSku).filter(
-      skuKeyStr => selectedSku[skuKeyStr] != ""
-    );
-    return this.data.tree.length == selected.length;
-  },
-  // 获得已选择的组合
-  getSkuComb: function () {
-    if (!this.isAllSelected()) {
-      return {};
-    }
-    let selectedSku = this.data.selectedSku;
-    let list = this.data.list;
-    let skusToCheck = [];
-    this.data.tree.forEach(v => {
-      skusToCheck.push(v.ks)
-    })
-    let filteredSku = list.filter(sku => (
-      skusToCheck.every(
-        skuKey => String(selectedSku[skuKey]) == String(sku[skuKey])
-      )
-    ));
-    return filteredSku[0];
-  },
-
- // 选择属性文字
-  getSelectedText: function () {
-    let selectedSku = this.data.selectedSku;
-    let text = "";
-    Object.keys(selectedSku).forEach(
-      skuKeyStr => {
-        let id = selectedSku[skuKeyStr];
-        let tree = this.data.tree;
-        for (let i = 0; i < tree.length; i++) {
-          let v = tree[i].v;
-          for (let j = 0; j < v.length; j++) {
-            if (v[j].id == id) {
-              text = text + ' ' + v[j].name
-            }
-          }
-        }
-      }
-    )
-    this.setData({
-      'specTextNoCount': text
-    })
-    if (this.isAllSelected()) {
-      text = text + ' ×' + this.data.count;
-    }
-    this.setData({
-      'specText': text
-    })
-  },
-  
-  changeCount: function (e) {
-    this.setData({
-      'count': e.detail.value
-    });
-    this.getSelectedText();
-  },
-  
-  // 未选择属性提示
-  toChooseTip: function () {
-    // 未选择规格属性
-    if (!this.data.show) {
-      // 未显示选择面板则显示
-      this.setData({
-        'show': true
-      })
-      return;
-    }
-    let selectedSku = this.data.selectedSku;
-    let skuNotChoose = Object.keys(selectedSku).filter(
-      skuKeyStr => selectedSku[skuKeyStr] == ''
-    )[0]
-    this.data.tree.forEach(v => {
-      if (v.ks == skuNotChoose) {
-        Toast("请选择：" + v.k);
-      }
-    })
-  },
   
 
-   Tocart: function(event) {
+ addToCart: function(event) {
 		this.setData({
 			toastHidden: false
 		});
@@ -464,7 +206,7 @@ isSkuChoosable: function (ks, vId) {
 	
 } */
 
-	Tobuy: function(event) {
+	buyNow: function(event) {
 		console.log(event)
 		var that = this;
 		var openid = wx.getStorageSync('userid');
