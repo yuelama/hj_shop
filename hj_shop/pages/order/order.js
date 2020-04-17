@@ -36,6 +36,8 @@ Page({
 	        inputValue: e.detail.value
 	      })
   }, 
+  
+ 
  
   /* Addaddress:function(){
 	  var that = this;

@@ -37,7 +37,7 @@ Page({
 	 	})
 	 } else if (!this.data.address.userName ) {
 	        wx.chooseAddress({
-	        	success: res => {
+	        	success: res => {				
 	        		this.setData({
 	        			address: res
 	        		})
@@ -50,14 +50,19 @@ Page({
    
 },
 
+ chooseAddress: function () {
+	// console.log(e)
+    wx.navigateTo({
+      url: '/hj_shop/pages/address/address'
+    }) 
+  },
+  
 wxpay:function(){
 	   var that = this;
 	       var order_num = this.data.order_num;
 	  		var total_price = this.data.total_price;
-	  		//var orders = this.data.orders;
-			
-	  	 var title = '总计';
-	  		
+	  		//var orders = this.data.orders;		
+	  	 var title = '总计';	  		
 	  var app = getApp();	   
 	  		   wx.showModal({
 	  		    title: '提示',			

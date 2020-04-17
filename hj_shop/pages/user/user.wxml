@@ -54,7 +54,8 @@
     </view>
 	
 	<view class='order-item' style="background-image: url(../../../images/temp/address.png); background-position:20rpx center" bindtap="navigateToOrder_get">
-	  地址管理<text class='more'></text> 
+	  地址管理<text class='more'></text>
+    
 	</view>
 	
     <view class='order-item' style="background-image: url(../../../images/temp/coupon.png); background-position:20rpx center" bindtap="navigateToOrder_pay">

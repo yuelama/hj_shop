@@ -1,12 +1,29 @@
 // hj_shop/pages/address/address.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    areaList:[],
   },
+  
+/* 
+getLocation:function(){
+	wx.getLocation({
+		type:"wgs84",
+		success:function(res){
+			console.log(res)
+		},
+		fail:function(err){
+			console.log(err)
+		}
+	})
+}, */
+
+
+ 
 
   /**
    * 生命周期函数--监听页面加载

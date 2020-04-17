@@ -42,6 +42,7 @@
 }
 
 .order-item {
+ 
   line-height: 30px;
   padding: 20rpx 0px 20rpx 100rpx;
   border-bottom: 1px #ccc solid;
@@ -92,6 +93,8 @@
   width: 13rpx;
   height: 25rpx;
 }
+
+
 
 .order-icon {
   height: 150rpx;
