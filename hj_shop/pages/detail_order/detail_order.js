@@ -11,6 +11,13 @@ Page({
      order_num:'',
 	 total_price:'',
 	 order_pic:'',
+	 actualPrice:'',
+	 couponCount: 2,
+	 coupon: {
+	   id: "",
+	   title: "",
+	   discount: 0
+	 },		
 	 order_title:''
   },
 
@@ -25,24 +32,33 @@ Page({
 	 	order_pic:options.detail_pic,
 		order_title:options.detail_title
 	 })
+	 if (this.data.total_price >= 1) {
+	   this.setData({
+	     expressPrice: 0
+	   })
+	 } else {
+	   this.setData({
+	     expressPrice: 10
+	   })
+	 }
+	// 实际价格总计
+	let actual_Price = this.data.expressPrice/10 + this.data.total_price  - this.data.coupon.discount
+	
+	this.setData({
+	  actualPrice: actual_Price
+	})		 
   },
  
  ToPay: function (e) {
 	// console.log(e)
      var that = this;
 	 var openid = wx.getStorageSync('userid');
-	 if('openid' ==''){
+	 if('openid'==''){
 	 	wx.switchTab({
 	 		url:'/hj_shop/pages/login/login'
 	 	})
-	 } else if (!this.data.address.userName ) {
-	        wx.chooseAddress({
-	        	success: res => {				
-	        		this.setData({
-	        			address: res
-	        		})
-	        	}				
-	        })
+	 } else if (!this.data.address.userName) {
+	       this.chooseAddress();
 	       } else {
 	         this.wxpay();
 	       }		
@@ -50,12 +66,41 @@ Page({
    
 },
 
- chooseAddress: function () {
+ // 选择收货地址
+ chooseAddress: function ( ) {
 	// console.log(e)
-    wx.navigateTo({
-      url: '/hj_shop/pages/address/address'
-    }) 
+	let that = this;
+	wx.chooseAddress({
+		success: res => {
+			this.setData({
+				address: res
+			})
+		}				
+	}) 
   },
+  
+ // 添加收货地址
+  openAddress:function( ){
+	 let that = this;
+	 wx.chooseAddress({
+	 	success: res => {
+	 		this.setData({
+	 			address: res
+	 		})			
+	 	}				
+	 })  
+  },
+  
+/* apps.util.request({
+ 'url': 'entry/wxapp/Address',
+ header: {
+   'content-type': 'application/json'
+ },	
+ 	data:{
+ 			
+ 	} ,		 
+ success(res) {	 */	 
+  
   
 wxpay:function(){
 	   var that = this;
@@ -73,8 +118,7 @@ wxpay:function(){
 	  		   	    'url': 'entry/wxapp/Pay', //调用wxapp.php中的doPagePay方法获取支付参数
 	  		   	    data: {
 	  		   	       price:total_price,
-	  		   	       title:title,
-			           
+	  		   	       title:title,		           
 					   order_num:order_num
 	  		   	    },
 	  		   	    'cachetime': '0',

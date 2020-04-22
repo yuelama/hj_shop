@@ -1,17 +1,18 @@
 <!--hj_shop/pages/detail_order/detail_order.wxml-->
+
 <view class="main">
 	<!-- <navigator url="../address/address"> -->
 	<form >
      <view wx:if="{{address.userName}}" class="order-address" data-id="{{address.id}}" bindtap="chooseAddress">
       <view class="l">
-		    <!-- <image class="a-pic" src="../../../images/temp/address.png" /> -->
             <text class="order-address-name">{{address.userName}}</text>
 		    <text class="order-address-phone">{{address.telNumber}}</text>
         </view>
       <view color="#b4282d" plain wx:if="{{address.isDefault}}">默认</view>  
         <text class="order-address-detail"> {{address.provinceName}} {{address.cityName}}	{{address.countyName}}{{address.detailInfo}}</text>
     </view> 
-	
+	   <!-- <view wx:else class="order-no-address" bindtap="openAddress">添加收货地址</view> -->
+	   	<van-cell wx:else  title="添加收货地址" icon="location-o"  bindtap="openAddress"/>
 	<view class="goods-list">
 		<view class="list-title">商品列表</view>
 		<!-- <view class="a-goods" wx:for-items="{{orders}}" wx:key="{{index}}"> -->
@@ -32,29 +33,29 @@
 		</view>
 	</view>
 	 <!-- 订单信息 -->
-	<mp-cells ext-class="my-cells">
-	   <mp-cell class="order-text" link url="../index" value="{{couponCount}} 张" footer="优惠券：{{coupon.id ?  coupon.title : '未选择' }}">     
-	   </mp-cell>
-	
-	<mp-cell class="order-text" value="￥{{expressPrice}}" footer="运费"></mp-cell> 
-	<mp-cell class="order-text" value="￥-￥{{coupon.discount}}" footer="优惠券" wx:if="{{coupon.id}}"></mp-cell>	
-	<mp-cell class="order-text" value="￥{{total_price}}元" footer="商品合计"></mp-cell>							  
-	</mp-cells>
+
+	<van-cell-group class="order-box">
+	  <van-cell custom-class="cell" title="优惠券：{{coupon.id ?  coupon.title : '未选择' }}" value="{{couponCount}} 张" is-link bindtap="chooseCoupon"/>
+	  <van-cell title="商品合计" value="￥{{actualPrice}}" />
+	  <van-cell title="运费" value="￥{{expressPrice}}" />
+	  <van-cell title="优惠券" value="-￥{{coupon.discount}}" wx:if="{{coupon.id}}" />
+	</van-cell-group>
 	  
 
-    <view class="weui-cells__title">买家留言：</view>
+  <!-- <view class="weui-cells__title">买家留言：</view> -->
+     <view class="weui-cells__title">买家留言</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="如需留言,请输入" />
+                        <textarea class="weui-textarea" placeholder="请输入留言" style="height: 3.3em" />
+                        <view class="weui-textarea-counter">0/200</view>
                     </view>
-                 </view>
-             </view> 		 
-		 
+                </view>
+     </view>	
 	</form>
 	
 	  <view  class="order-footer">
-	  	<view class="order-footer-total">付款合计：￥{{total_price}}</view>
+	  	<view class="order-footer-total">付款合计：￥{{actualPrice}}</view>
 	  	<view class="order-footer-btn"  bindtap="ToPay">去付款</view>
 	  </view>
 

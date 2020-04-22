@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-     iscart: false,	 
+     iscart: false,	
+	 openid: '',
     // cart: [], //数据
      //count: 1,   //商品数量默认是1
      total: 0,    //总金额     
@@ -130,8 +131,7 @@ Page({
         this.data.cart.splice(index, 1);
         // 更新data数据对象	
 		var totals = this.data.total;   //解决显示小数点位数过多bug
-		  this.data.total = parseFloat(totals.toFixed(2));
-		
+		  this.data.total = parseFloat(totals.toFixed(2));	
         this.setData({
             cart: this.data.cart,
             total: this.data.total,
@@ -162,11 +162,10 @@ Page({
   
   
   Tooder:function(event){
-	 console.log(event)
-	 //var order_info = event.currentTarget.dataset.cart;
+	// console.log(event)
 	
-	 var total_price = event.currentTarget.dataset.total;
-	 var order_num = event.currentTarget.dataset.count;
+	var total_price = event.currentTarget.dataset.total;
+	var order_num = event.currentTarget.dataset.count;	
 	 wx.navigateTo({
 	   url: '../order/order?total_price=' + total_price +'&order_num=' + order_num
 	 })

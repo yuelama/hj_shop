@@ -1,14 +1,28 @@
 // hj_shop/pages/order/order.js
+
 Page({
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
 		openid: '',
-		orderinfo: [],
+		cartlist: [],
+		orderlist:[],
 		order_num: '',
 		total_price: '',
+		product_pic:'',
+		actualPrice:'', //实际价格
 		text:'',
+		
+		productList: [ ], //购物车商品列表
+		
+		couponCount: 2,
+		coupon: {
+		  id: "",
+		  title: "",
+		  discount: 0
+		},		
+		 expressPrice: 0, //运费
 		
 		orders: [],
 		address: {},
@@ -20,14 +34,33 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
-		// console.log(options)
-		var orderinfo = wx.getStorageSync('cart')|| [];
-		this.setData({
-			order_num: options.order_num,
-			total_price: options.total_price,
-			orders: orderinfo
-		})
-	},
+		 //console.log(options)
+		 var that = this;	
+		 var orderinfo = wx.getStorageSync('cart')|| [];
+		 		this.setData({
+		 			order_num: options.order_num,
+		 			total_price: options.total_price,
+		 			orders: orderinfo
+		 		})					
+			//console.log(that.data.total_price)	
+		// 判断运费
+		if (this.data.total_price >= 1) {
+		  this.setData({
+		    expressPrice: 0
+		  })
+		} else {
+		  this.setData({
+		    expressPrice: 10
+		  })
+		}					
+		// 实际价格总计		
+		let actual_Price = that.data.expressPrice/10 + that.data.total_price - that.data.coupon.discount	
+			
+			
+		 this.setData({
+		  actualPrice: actual_Price
+		})	 
+},
 	
 	/* 获取留言信息 */
  bindKeyInput:function(e){
@@ -37,7 +70,15 @@ Page({
 	      })
   }, 
   
- 
+ chooseCoupon: function () {
+   if(this.data.couponCount==0){
+     Toast("您暂无可用优惠券");
+     return;
+   }
+   wx.navigateTo({
+     url: '/hj_shop/pages/coupon/coupon?mode=choose&couponId=' + this.data.coupon.id,
+   })
+ },
  
   /* Addaddress:function(){
 	  var that = this;
@@ -57,6 +98,31 @@ Page({
 	  		  
 	  }
    }, */
+   
+  /* 添加收货地址 */
+ openAddress: function () {
+       let that = this;
+      wx.chooseAddress({
+      	success: res => {
+      		that.setData({
+      			address: res
+      		})
+      	}				
+      })
+    }, 
+	
+	
+	 /* 选择编辑收货地址 */
+chooseAddress:function(){
+	let that = this;
+	wx.chooseAddress({
+		success: res => {
+			that.setData({
+				address: res
+			})
+		}				
+	})
+},
 
      // 清空购物车数据
      //wx.removeStorageSync('shopCarInfo');
@@ -64,20 +130,10 @@ Page({
 	ToPay: function(e) {
 		var that = this;
         /* var address = that.data.address;*/
-		var text = this.data.inputValue;   //获取用户留言信息		
-		var openid = wx.getStorageSync('userid'); 		
-		if(openid ==''){
-			wx.switchTab({
-				url:'/hj_shop/pages/login/login'
-			})
-		} else if (!this.data.address.userName ) {
-		       wx.chooseAddress({
-		       	success: res => {
-		       		this.setData({
-		       			address: res
-		       		})
-		       	}				
-		       })
+		var text = this.data.inputValue;   //获取用户留言信息
+		console.log(this.data.address.userName)
+	   if (!this.data.address.userName ) {
+		       this.openAddress();
 		      } else {
 		        this.wxpay();
 		      }		

@@ -3,15 +3,15 @@
    
     "hj_shop/pages/index/index",
     "hj_shop/pages/detail_order/detail_order",
-   
+
     "hj_shop/pages/login/login",
    
     "hj_shop/pages/cart/cart",
     "hj_shop/pages/order/order",
     "hj_shop/pages/user/user",
     "hj_shop/pages/catelist/catelist",
-    "hj_shop/pages/productdetail/productdetail",
-    "hj_shop/pages/address/address"
+    "hj_shop/pages/productdetail/productdetail"
+   
    
     
   ],
@@ -47,11 +47,21 @@
       }
     ]
   },
-  "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 10000
-  },
-  "debug": true,
-  "style": "v2",
+   "usingComponents": {
+	   "weui-cells": "/components/cells/cells",
+	   "weui-cell": "/components/cell/cell",
+	  
+	   "van-tag": "/miniprogram_npm/@vant/weapp/tag/index",
+	   "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+	   "van-field": "/miniprogram_npm/@vant/weapp/field/index",
+	   "van-tab": "/miniprogram_npm/@vant/weapp/tab/index",
+	   "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index",  
+	   "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+	   "van-CellGroup": "/miniprogram_npm/@vant/weapp/cell-group/index",   
+	   "van-toast": "/miniprogram_npm/@vant/weapp/toast/index"
+	  
+	   
+   },
+  
   "sitemapLocation": "sitemap.json"
 }

@@ -51,7 +51,7 @@ Page({
 	  })
   },
 
-openAddress: function () {
+/* openAddress: function () {
     let that = this;
     wx.chooseLocation({
       success: function (res) {
@@ -64,15 +64,17 @@ openAddress: function () {
       },
     })
   },
+ */
 
-Tocart:function(event){
+Addcart:function(event){
+   var openid = wx.getStorageSync('userid');
+	if('openid'){
 	this.setData({
 	          toastHidden:false
 	      });
 	for (var i in this.data.productdetail){
 			  if(this.data.productdetail[i].id == event.currentTarget.dataset.productid){
-					 this.joinT();
-												 
+					 this.joinT();											 
 			   this.data.productdetail[i].product_num = 1;
 				var arr = wx.getStorageSync('cart') || [];
 				 if(arr.length>0){
@@ -81,10 +83,7 @@ Tocart:function(event){
 									 // 判断购物车内的item的id，和事件传递过来的id，是否相							
 	                  if(arr[j].id == event.currentTarget.dataset.productid){											
 											 // 相等的话，给count+1（即再次添加入购物车，数量+1）
-	                      arr[j].product_num = arr[j].product_num + 1;
-												/* wx.switchTab({//接着跳到购物车页		 
-												 	url: "/hj_shop/pages/cart/cart",
-												   })	 */																																																		
+	                      arr[j].product_num = arr[j].product_num + 1;																																																	
 																						
 						try {
 	                          wx.setStorageSync('cart', arr)
@@ -114,38 +113,66 @@ Tocart:function(event){
 	          }
 																
 		   }
-	  }	
+	  }
+     }else{
+		 wx.switchTab({
+		 		url:'/hj_shop/pages/login/login'
+		 	})
+	 }
 },
 
 /* onPullDownRefresh(){
 	
 } */
 
-/* Tocar:function(){
+ Tocart:function(){
 	wx.switchTab({
 		url:'/hj_shop/pages/cart/cart'
 	})
-} */
-Tobuy:function(event){
-	console.log(event)
-	var that = this;
-	
-	var openid = wx.getStorageSync('userid');
-	
-    if('openid'){
+} ,
 
+openIndexPage:function(){
+	wx.switchTab({
+		url:'/hj_shop/pages/index/index'
+	})
+} ,
+
+
+/* buyNow: function () {
+	var openid = wx.getStorageSync('userid');
+	if('openid'){
+	// 跳转checkout页面
+	  wx.setStorageSync("orders", this.data.productdetail);
+	 // wx.setStorageSync("checkoutProductSku", this.data.sku);
+	  wx.navigateTo({
+	    url: '/hj_shop/pages/order/order?from=productdetail'
+	  })
+	}
+    
+     else {
+        wx.switchTab({//请登录
+          url: "/hj_shop/pages/login/login"
+        }) 	
+	 
+	 }
+    
+  }, */
+
+ Tobuy:function(event){
+	//console.log(event)
+	var that = this;	
+	var openid = wx.getStorageSync('userid');	
+    if('openid'){
 	for (var i in this.data.productdetail){
 	  if(this.data.productdetail[i].id == event.currentTarget.dataset.productid){
 			var detail_price =  this.data.productdetail[i].price; 
-			var detail_title =   this.data.productdetail[i].product_name;
+			var detail_title =  this.data.productdetail[i].product_name;
 	        var detail_num = this.data.productdetail[i].product_num;
 			var detail_pic = this.data.productdetail[i].img;
 		}	
 	 wx.navigateTo({
 	  url: '../detail_order/detail_order?detail_price=' + detail_price +'&detail_num=' + detail_num + '&detail_title=' + detail_title + '&detail_pic=' + detail_pic
-	}) 
-	
-	
+	}) 	
 	}
 	
 	}else{
@@ -154,7 +181,7 @@ Tobuy:function(event){
 		}) 				
 	}
 },
-
+ 
 
 joinF:function(){
     wx.showModal({

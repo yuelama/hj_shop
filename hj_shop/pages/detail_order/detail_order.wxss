@@ -214,17 +214,7 @@
     background: rgb(248, 188, 76);
 }
 
-.weui-input{
-  font-size: 30rpx;
-  height:80rpx;
-}
 
-.weui-cells__title{
-	background: #f4f4f4;
-  height: 40rpx;
-  font-size: 28rpx;
-  font-display: center;  
-}
 
 .address-bg {
   display: block;

@@ -1,4 +1,0 @@
-<!--hj_shop/pages/address/address.wxml-->
-<view>
-	<!-- <button bindtap="getLocation" type="primary">点击获取当前地址</button> -->
-</view>

@@ -1,10 +1,9 @@
 {
  "navigationBarTitleText": "待付款订单",
     "usingComponents": {
-	  "mp-toptips": "/components/toptips/toptips",
-      "mp-cells": "/components/cells/cells",
-      "mp-cell": "/components/cell/cell",
-      "mp-form": "/components/form/form"
+	 "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+	 "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+	  "van-field":"/miniprogram_npm/@vant/weapp/field/index"
 	  
     }
 }

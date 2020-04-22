@@ -43,6 +43,9 @@ Page({
 		})
 		this.getcateinfo();
         this.getbannerinfo();
+	/* 	this.page=0
+		this.getlist(true) */
+		//wx.showShareMenu();
 	},
 	
 	

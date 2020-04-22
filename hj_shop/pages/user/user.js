@@ -79,13 +79,27 @@ toOrder: function (e) {
       url: '/hj_shop/pages/order/order?type=' + type,
     })
   },
-  toAddress: function () {
+  
+ /* toAddress: function () {
    // this.checkLogin();
     wx.navigateTo({
       url: '/hj_shop/pages/address/address'
     })
+  }, */
+  
+  ToAddress:function( ){
+  	 let that = this;
+  	 wx.chooseAddress({
+  	 	success: res => {
+  	 		this.setData({
+  	 			address: res
+  	 		})
+  	 	}				
+  	 }) 
   },
-  toCoupon: function () {
+  
+  
+  ToCoupon: function () {
   //  this.checkLogin();
     wx.navigateTo({
       url: '/hj_shop/pages/coupon/coupon'
