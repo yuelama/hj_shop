@@ -10,8 +10,11 @@
 	  <view color="#b4282d" plain wx:if="{{address.isDefault}}">默认</view>  
 	    <text class="order-address-detail"> {{address.provinceName}} {{address.cityName}}	{{address.countyName}}{{address.detailInfo}}</text>
 	</view> 
+	
 <!--    <view wx:else class="order-no-address" bindtap="openAddress">添加收货地址</view> -->
 	<van-cell wx:else  title="添加收货地址" icon="location-o"  bindtap="openAddress"/>
+	
+	<view class="address-bg"></view>
 	<!--  </navigator> -->
 	<view class="goods-list">
 		<view class="list-title">商品列表</view>
@@ -32,25 +35,23 @@
 		</view>
 	</view>
 	
-	<van-cell-group class="order-box">
-	  <van-cell custom-class="cell" title="优惠券：{{coupon.id ?  coupon.title : '未选择' }}" value="{{couponCount}} 张" is-link bindtap="chooseCoupon"/>
+	 <van-cell-group class="order-box">
+	 
 	  <van-cell title="商品合计" value="￥{{total_price}}" />
 	  <van-cell title="运费" value="￥{{expressPrice}}" />
-	  <van-cell title="优惠券" value="-￥{{coupon.discount}}" wx:if="{{coupon.id}}" />
-	</van-cell-group>
 
-	 <view class="weui-cells__title">买家留言</view>
-	        <view class="weui-cells weui-cells_after-title">
-	            <view class="weui-cell">
-	                <view class="weui-cell__bd">
-	                    <textarea class="weui-textarea" placeholder="请输入留言" style="height: 3.3em" />
-	                    <view class="weui-textarea-counter">0/200</view>
-	                </view>
-	            </view>
-	 </view>	
+	</van-cell-group> 
 
-	
-	</form>
+	<!-- <view class="weui-cells__title">买家留言</view> -->
+    <view class="weui-cells weui-cells_after-title">
+	 <view class="weui-cell">
+	   <view class="weui-cell__bd">
+	    <textarea class="weui-textarea" placeholder="请输入留言" style="height:2.3em;font-size:28rpx;" bindinput="bindTextAreaBlur" />
+	    <view class="weui-textarea-counter">{{noteNowLen}}/200</view>
+	   </view>
+	 </view>
+   </view>		
+ </form>
 	
 	  <view  class="order-footer">
 	  	<view class="order-footer-total">实际付款：￥{{actualPrice}}</view>

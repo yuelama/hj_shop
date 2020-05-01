@@ -105,19 +105,20 @@ Page({
 wxpay:function(){
 	   var that = this;
 	       var order_num = this.data.order_num;
-	  		var total_price = this.data.total_price;
+	  		var actualPrice = this.data.actualPrice;
+			//console.log(actualPrice)
 	  		//var orders = this.data.orders;		
 	  	 var title = '总计';	  		
 	  var app = getApp();	   
 	  		   wx.showModal({
 	  		    title: '提示',			
-	  		    content: '是否进行微信支付？全部结算金额为：' + total_price+'元',
+	  		    content: '是否进行微信支付？全部结算金额为：' + actualPrice+'元',
 	  		    success: function (res) {			
 	  		      if (res.confirm) {
 	  		   	   app.util.request({
 	  		   	    'url': 'entry/wxapp/Pay', //调用wxapp.php中的doPagePay方法获取支付参数
 	  		   	    data: {
-	  		   	       price:total_price,
+	  		   	       price:actualPrice,
 	  		   	       title:title,		           
 					   order_num:order_num
 	  		   	    },
@@ -141,7 +142,7 @@ wxpay:function(){
 	  		   								//icon:[],
 	  										 order_num:'',
 	  		   						 	     orders:[],
-	  										 total_price:'',
+	  										 actualPrice:'',
 											 title:'' 
 	  		   												   
 	  		   						 	}); 		   							

@@ -76,7 +76,7 @@ toOrder: function (e) {
    // this.checkLogin();
     let type = e.currentTarget.id;
     wx.navigateTo({
-      url: '/hj_shop/pages/order/order?type=' + type,
+      url: '/hj_shop/pages/order_Result/order_Result?type=' + type,
     })
   },
   
