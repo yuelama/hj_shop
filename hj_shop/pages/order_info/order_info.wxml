@@ -1,0 +1,67 @@
+<!--hj_shop/pages/order_info/order_info.wxml-->
+<!-- 地址 -->
+<!-- <view class="address-box"  wx:for="{{orderlist}}" wx:key="{{item.id}}">
+  <view class="l">
+    <view class="top">
+      <text class="name">{{item.express_name}}</text>
+      <text class="mobile">{{item.express_tel}}</text>
+    </view>
+    <view class="address wux-ellipsis--l2">{{item.express_province + item.express_city}}</view>
+  </view>
+  <view class="r" wx:if="{{order.orderStatus==1}}">
+    <i-icon type="editor" size="26" color="#999" />
+  </view>
+</view>
+<view class="address-bg"></view> -->
+<!-- 加载中 -->
+<!-- <view wx:if="{{loading}}" class="loading-center">
+  <van-loading type="spinner" />
+</view> -->
+
+<!-- 无订单 -->
+<!-- <view class="no-order" wx:if="{{orderList.length == 0&&!loading}}"> -->
+<!-- <view class="no-order">
+  <image class="img" src="/images/temp/noOrder.png"></image>
+  <view class="txt">还没有任何订单呢</view>
+</view> -->
+
+
+<!-- 订单列表 -->
+<!-- <scroll-view bindscrolltolower="scrollListen" scroll-y enable-flex class="orders" wx:if="{{orderList.length > 0&&!loading}}"> -->
+  <scroll-view >
+  <view style="margin-top:108rpx"></view>
+  <!-- 订单 -->
+  <view class="order" wx:for="{{orderList}}" wx:key="{{item.id}}">
+    <view class="header">
+      <view class="order-id">订单编号：{{item.order_no}}</view>
+      <view  class="cancel" data-value="{{item}}" data-index="{{index}}" bindtap="cancelOrder">取消订单</view>
+      <image class="delete" src="/images/temp/delete.png" data-value="{{item}}" bindtap="deleteOrder"></image>
+    </view>
+
+    <view class="product" wx:for="{{orderList}}" wx:key="{{item.id}}" data-value="{{item}}" bindtap="toOrderDetail">
+      <image class="img" src="{{item.order_img_url}}"></image>
+      <view class="info">
+        <text class="title">{{item.order_name}}</text>
+        <text class="specDesc">{{item.order_num}}</text>
+		<!-- <text class="specDesc">{{item.order_num}}</text> -->
+      </view>    
+    </view>
+	
+    <view class="foot">
+      <view class="money">
+       <text >应付：￥{{item.order_price}}</text>
+       <!-- <text >实付：￥{{item.actualPrice}}</text> -->
+      </view>
+      <view class="btns">
+        <van-button data-value="{{item}}" data-index="{{index}}"  color="#b4282d" size="small" class="btn" bindtap="toPay">去付款
+        </van-button>
+
+        <van-button data-value="{{item}}" data-index="{{index}}" plain type="default" size="small" class="btn" bindtap="buyAgain">再次购买</van-button>
+        <van-button data-value="{{item}}" data-index="{{index}}"  plain type="default" size="small" class="btn" bindtap="toComment">立即评价</van-button>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<van-dialog confirm-button-color="#b4282d" id="van-dialog" />
+ 

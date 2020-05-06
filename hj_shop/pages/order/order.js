@@ -22,13 +22,22 @@ Page({
           discount: 0
         },		
 		
+		//isDefault
+		
 		productList: [], //购物车商品列表
     
 		expressPrice: 0, //运费
 
 		orders: [],
 		address: {},
-		hasAddress: false
+		hasAddress: false,
+		
+		express_name:"",
+		express_tel:"",
+		express_addr:"",
+		express_postcode:'',
+		express_street:"",
+		isDefault: false
 
 	},
 
@@ -80,25 +89,66 @@ Page({
 		})
 	},
 	
-	/* 添加收货地址 */
- 	 openAddress: function() {
-		let that = this;
-		wx.chooseAddress({
-			success: res => {
-				that.setData({
-					address: res
-				})
-			}
-		})
-		
+	
+	
+chooseAddress: function (e) {
+	//console.log(e)
+	let that = this;
+	 let data = e.currentTarget.dataset.value;
+	let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;	
+	apps.util.request({
+	  'url': 'entry/wxapp/Addaddress',
+	  header: {
+	    'content-type': 'application/json' // 默认值
+	  }, 
+	  data:{
+		 express_name:data.userName,
+		 express_tel:data.telNumber,
+		 express_addr:addr,
+		 express_street:data.detailInfo,
+		 express_postcode:data.postalCode,
+	     openid:wx.getStorageSync('userid')
+	  },
+	  success(res) {
+		  //  console.log(res)
+		   /* wx.navigateTo({
+		       url: '/hj_shop/pages/address/address'
+		     }) */ 
+			 that.addAddress();
+			/* wx.chooseAddress({
+			  	success: res => {
+			 		
+			 		 that.setData({
+			 			address: res
+			 		}) 
+				//wx.setStorageSync("addr_info",res);
+			 	} 
+			 }) */								
+		  }
+})
+		//console.log(address)
+	 /* wx.navigateTo({
+	    url: '/hj_shop/pages/address/address?address=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode + '&isDefault=' + this.data.isDefault
+	  }) */
+	  /* wx.navigateTo({
+	    url: '/hj_shop/pages/address/address'
+	  }) */
+	 
 	}, 
 	
-	chooseAddress: function () {
-	  wx.navigateTo({
-	    url: '/hj_shop/pages/address/address'
-	  })
+	/* 添加收货地址 */
+   addAddress: function() {
+		let that = this;
+		wx.chooseAddress({
+		 	success: res => {
+				//console.log(res)
+				that.setData({
+					address: res
+				}) 
+			} 
+		}) 
+				
 	}, 
-
 
 	/* 选择编辑收货地址 */
 	/* chooseAddress: function() {
@@ -146,9 +196,11 @@ Page({
 		var actprice = this.data.actualPrice; //实际支付现金
 		var message = that.data.content; //获取用户留言信息		
 		var title = this.data.orders[0].product_name;
+		//console.log(this.data.orders)
+		var order_img = this.data.orders[0].img;
 			
 		if (!this.data.address.userName) {
-			this.openAddress();
+			this.chooseAddress();
 		} else {
 			 apps.util.request({
 			 'url': 'entry/wxapp/createorder',
@@ -157,17 +209,11 @@ Page({
 						  },		
 			data:{					
 				title:title,
+				order_img:order_img,
 				openid:wx.getStorageSync('userid'),
 				actprice:this.data.actualPrice,
 				ordernum:this.data.order_num,				
-				message:that.data.content,							
-				username:this.data.address.userName,
-				provinceName:this.data.address.provinceName,
-				cityName:this.data.address.cityName,
-				countyName:this.data.address.countyName,		  
-				detailInfo:this.data.address.detailInfo,
-				postalCode:this.data.address.postalCode,
-				tel_number:this.data.address.telNumber	
+				message:that.data.content,										
 				} ,					 
 			        success(res) {
 						console.log(res)

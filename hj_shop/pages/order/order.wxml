@@ -2,7 +2,7 @@
 <view class="main">
 	<!-- <navigator url="../address/address"> -->
 	<form>
-	<view wx:if="{{address.userName}}" class="order-address" data-id="{{address.id}}" bindtap="chooseAddress">
+	<view wx:if="{{address.userName}}" class="order-address" data-id="{{address.id}}"  data-value="{{address}}" bindtap="chooseAddress">
 	  <view class="l">
 	        <text class="order-address-name">{{address.userName}}</text>
 		    <text class="order-address-phone">{{address.telNumber}}</text>
@@ -12,7 +12,7 @@
 	</view> 
 	
 <!--    <view wx:else class="order-no-address" bindtap="openAddress">添加收货地址</view> -->
-	<van-cell wx:else  title="添加收货地址" icon="location-o"  bindtap="openAddress"/>
+	<van-cell wx:else  title="添加收货地址" icon="location-o"   bindtap="addAddress"/>
 	
 	<view class="address-bg"></view>
 	<!--  </navigator> -->

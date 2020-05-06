@@ -30,7 +30,7 @@ Page({
 				'content-type': 'application/json'
 			},
 			success(res) {
-				//console.log(res)
+				console.log(res)
 				var proinfo = [];
 				for (var i = 0; i < 2; i++) {
 					proinfo[i] = res.data.data.products[i]

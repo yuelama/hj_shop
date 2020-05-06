@@ -166,10 +166,12 @@ Page({
 	
 	var total_price = event.currentTarget.dataset.total;
 	var order_num = event.currentTarget.dataset.count;	
-	 wx.navigateTo({
+	/* wx.navigateTo({
 	   url: '../order/order?total_price=' + total_price +'&order_num=' + order_num
+	 }) */
+	  wx.navigateTo({
+		 url:'/hj_shop/pages/order/order?total_price=' + total_price +'&order_num=' + order_num
 	 })
-	 
   },
 
   /**

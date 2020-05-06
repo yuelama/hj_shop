@@ -72,30 +72,29 @@ Login: function () {
   },  
   
 
-toOrder: function (e) {
+Tooders: function (e) {
    // this.checkLogin();
     let type = e.currentTarget.id;
     wx.navigateTo({
-      url: '/hj_shop/pages/order_Result/order_Result?type=' + type,
+      //url: '/hj_shop/pages/order_Result/order_Result?type=' + type,
+	  url: '/hj_shop/pages/order_info/order_info'
     })
   },
   
- /* toAddress: function () {
-   // this.checkLogin();
-    wx.navigateTo({
-      url: '/hj_shop/pages/address/address'
-    })
-  }, */
   
   ToAddress:function( ){
-  	 let that = this;
-  	 wx.chooseAddress({
-  	 	success: res => {
-  	 		this.setData({
-  	 			address: res
-  	 		})
-  	 	}				
-  	 }) 
+	var openid = wx.getStorageSync('userid');
+	if('openid'){
+		wx.navigateTo({
+		  url: '/hj_shop/pages/address/address'
+		})
+	}else{
+		wx.navigateTo({
+		  url: '/hj_shop/pages/login/login'
+		})
+	}
+  	
+  	 
   },
   
   
