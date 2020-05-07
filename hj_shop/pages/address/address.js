@@ -9,46 +9,50 @@ Page({
     chooseMode: false,
 	//isDefault: true,
 	checked: false,
-    addressList:[],
+  
 	addr_info:[],
 	del_id:'',
 	
-	/* express_name:"",
-	express_tel:'',
-	express_addr:"",
-	express_street:"",
-	express_postcode:'', */
-    isDefault:false
+	addressList: [],
+	 
+	isDefault:false,
+	address:false
+  
 	
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-	var that =this;
-	apps.util.request({
-	  'url': 'entry/wxapp/GetAddr',
-	  header: {
-	    'content-type': 'application/json' // 默认值
-	  }, 	    
-	  success(res) { 
-		 // console.log(res)
-		       var addrs = [];
-		    	for (var i = 0; i < res.data.data.length; i++) {					
-		    		  addrs[i] = res.data.data[i]	    		  				
-		    		   } 
-						that.setData({
-							addressList:addrs
-						})					   
-				}
-			})
-	//this.getAddress();
+  onLoad: function (e) {
+	
+  
   },
 
-/* loadAddr:function(){
-	
-}, */
+ loadAddr:function(){
+	let that = this;
+     let data = wx.getStorageSync("address") ;
+	// console.log(data)
+	 let addr =  data.provinceName+ " " + data.cityName + " " + data.countyName;
+		apps.util.request({
+		  'url': 'entry/wxapp/Addaddress',
+		  header: {
+		    'content-type': 'application/json' // 默认值
+		  }, 
+		  data:{
+			  name:data.userName,
+			  mobile:data.telNumber,
+			  address: addr,
+			   street: data.detailInfo,
+			  postcode:data.postalCode,
+			   openid:wx.getStorageSync('userid')
+		    },
+		  success(res) {
+				wx.removeStorageSync('address');
+										
+			  }
+	})
+}, 
 
 
   /**
@@ -62,7 +66,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
- 	
+ 	var that =this;
+ 		apps.util.request({
+ 		  'url': 'entry/wxapp/GetAddr',
+ 		  header: {
+ 		    'content-type': 'application/json' // 默认值
+ 		  }, 	    
+ 		  success(res) { 
+ 			 // console.log(res)
+ 			       var addrs = [];
+ 			    	for (var i = 0; i < res.data.data.length; i++) {					
+ 			    		  addrs[i] = res.data.data[i]	    		  				
+ 			    		   } 
+ 							that.setData({
+ 								addressList:addrs
+ 							})					   
+ 					}
+ 				})
   },
 
   /**
@@ -114,7 +134,7 @@ Page({
   }, */
   
   deleteAddr: function (e) {
-	 //console.log(e)
+	// console.log(e)
 	 let data = e.currentTarget.dataset.value;
 	 
 	let that = this;
@@ -130,7 +150,7 @@ Page({
 	  },
 	  success(res) {
 		  
-		   that.onLoad();
+		   that.onShow()
 		    
 		  }
 	   })	
@@ -139,65 +159,62 @@ Page({
       url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&id=' + data.id + '&name=' + data.express_name + '&mobile=' + data.express_tel + '&address=' + address + '&detail=' + data.express_detail + '&isDefault=' + this.data.isDefault
     }) */
  },
-  
-  /* addAddress: function () {
-      let that = this;
-       var addr_info = wx.getStorageSync("addr_info");
-      // console.log(addr_info)
-       let express_addr =  addr_info.provinceName+ " " + addr_info.cityName + " " + addr_info.countyName;
-			   
-   	   apps.util.request({
-   	     'url': 'entry/wxapp/Addaddress',
-   	     header: {
-   	       'content-type': 'application/json' // 默认值
-   	     }, 
-   	     data:{
-   	   	express_name:addr_info.userName,
-   	   	express_tel:addr_info.telNumber,
-   	   	express_addr:express_addr,
-   	   	express_street:addr_info.detailInfo,
-   	   	express_postcode:addr_info.postalCode,
-   	   		openid:wx.getStorageSync('userid')
-   	     },
-   	     success(res) {
-   	   	   //  console.log(res)
-   	   	   wx.chooseAddress({
-   	   	     success(res) {
-   	   	   	 that.setData({
-   	   	   		  address:res
-   	   	   	  })   
-   	   	      // wx.setStorageSync("addr_info", res);
-   	   	       } 		  
-   	   		}) 
-			// wx.removeStorageSync("addr_info")
-        }
-	})
-  },*/
-  
+ 
+ editAddress: function (e) {
+   //console.log(e)
+   let data = e.currentTarget.dataset.value;
+ //  console.log(data)
+   wx.navigateTo({
+     url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&id=' + data.id + '&name=' + data.user_name + '&mobile=' + data.user_mobile + '&address=' + data.user_address + '&street=' + data.user_street + '&isDefault=' + data.isDefault
+   })
+ },
  
  
- importAddress: function () {
-	var that = this;
+ 
+ addAddress: function () {
+  let that = this;
+  wx.navigateTo({
+  	 	    url: '/hj_shop/pages/editaddr/editaddr',
+			})
+/*  wx.chooseAddress({
+    success:res=> {		        
+  		let addr = res.provinceName+ " " + res.cityName + " " + res.countyName;
+  		wx.navigateTo({
+  			 	    url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&name=' + res.userName + '&mobile=' + res.telNumber + '&addr=' + addr + '&street=' + res.detailInfo + '&postcode=' + res.postalCode +'&isDefault=' + this.data.isDefault
+  		})
+            
+    } 
+  })*/
+ },
+ 
+  importAddress: function () {
+	  let that = this;	  
     wx.chooseAddress({
-      success(res) {
-		 that.setData({
-			  address:res
-		  })   
-	 
-        } 
-		
-    })
-		
-},
+      success:res =>{
+		  let addr = res.provinceName+ " " + res.cityName + " " + res.countyName;
+		  wx.navigateTo({
+		  	 	    url: '/hj_shop/pages/editaddr/editaddr?import=true&name=' + res.userName + '&mobile=' + res.telNumber + '&addr=' + addr + '&street=' + res.detailInfo + '&postcode=' + res.postalCode +'&isDefault=' + this.data.isDefault
+		  })
+	  }
+    }) 
+  },
   
   chooseAddress: function (e) {
-	 // console.log(e)
-   var that = this;
-     wx.chooseAddress({
-		 success:res =>{
-			 console.log(res)
-		 }
-	 })
-	// wx.setStorageSync("addr_info", res);
-	} 
+    if (this.data.chooseMode) {
+      let address = e.currentTarget.dataset.value;
+  
+      let pages = getCurrentPages();
+      let prevPage = pages[pages.length - 2];  //上一个页面
+      //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+      prevPage.setData({
+        address: address
+      })
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+  }
+ 
+ 
+
 })

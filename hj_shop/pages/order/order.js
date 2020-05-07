@@ -22,7 +22,7 @@ Page({
           discount: 0
         },		
 		
-		//isDefault
+		
 		
 		productList: [], //购物车商品列表
     
@@ -30,14 +30,9 @@ Page({
 
 		orders: [],
 		address: {},
-		hasAddress: false,
 		
-		express_name:"",
-		express_tel:"",
-		express_addr:"",
-		express_postcode:'',
-		express_street:"",
-		isDefault: false
+		isDefault:false
+	
 
 	},
 
@@ -92,48 +87,12 @@ Page({
 	
 	
 chooseAddress: function (e) {
-	//console.log(e)
-	let that = this;
-	 let data = e.currentTarget.dataset.value;
-	let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;	
-	apps.util.request({
-	  'url': 'entry/wxapp/Addaddress',
-	  header: {
-	    'content-type': 'application/json' // 默认值
-	  }, 
-	  data:{
-		 express_name:data.userName,
-		 express_tel:data.telNumber,
-		 express_addr:addr,
-		 express_street:data.detailInfo,
-		 express_postcode:data.postalCode,
-	     openid:wx.getStorageSync('userid')
-	  },
-	  success(res) {
-		  //  console.log(res)
-		   /* wx.navigateTo({
-		       url: '/hj_shop/pages/address/address'
-		     }) */ 
-			 that.addAddress();
-			/* wx.chooseAddress({
-			  	success: res => {
-			 		
-			 		 that.setData({
-			 			address: res
-			 		}) 
-				//wx.setStorageSync("addr_info",res);
-			 	} 
-			 }) */								
-		  }
-})
-		//console.log(address)
-	 /* wx.navigateTo({
-	    url: '/hj_shop/pages/address/address?address=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode + '&isDefault=' + this.data.isDefault
-	  }) */
-	  /* wx.navigateTo({
-	    url: '/hj_shop/pages/address/address'
-	  }) */
-	 
+	console.log(e)
+		 let data = e.currentTarget.dataset.value;
+		let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;
+	  wx.navigateTo({
+	 	    url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode +'&isDefault=' + this.data.isDefault
+	  })
 	}, 
 	
 	/* 添加收货地址 */
@@ -150,45 +109,7 @@ chooseAddress: function (e) {
 				
 	}, 
 
-	/* 选择编辑收货地址 */
-	/* chooseAddress: function() {
-		let that = this;
-		var address = this.data.address;		
-		//console.log(this.data.address)
-		var openid = wx.getStorageSync('userid');
-		if (!this.data.address.userName) {
-			this.openAddress();
-		}else if('openid' ==''){
-			wx.switchTab({
-					url:'/hj_shop/pages/login/login'
-				})
-		}else {
-		   apps.util.request({
-		   'url': 'entry/wxapp/Addaddress',
-		  header: {
-		     'content-type': 'application/json'
-		  			  },		
-		  data:{
-		  username:this.data.address.userName,
-		  provinceName:this.data.address.provinceName,
-		  cityName:this.data.address.cityName,
-		  countyName:this.data.address.countyName,		  
-		  detailInfo:this.data.address.detailInfo,
-		  postalCode:this.data.address.postalCode,
-		  tel_number:this.data.address.telNumber	 
-		  	//address:this.data.address		  
-		 },					 
-		    success(res) {
-				 console.log(res)	  
-				  			  
-				  }
-			
-		  })
-	  }
-	}, */
-
-	// 清空购物车数据
-	//wx.removeStorageSync('shopCarInfo');
+	
 
 	ToPay: function(e) {
 		var that = this;
