@@ -31,7 +31,7 @@ Page({
 		orders: [],
 		address: {},
 		
-		isDefault:false
+		isDefault:true
 	
 
 	},
@@ -65,6 +65,7 @@ Page({
 		this.setData({
 			actualPrice: actual_Price
 		})
+	this.openAddrss()	
 	},
 
 	/* 获取留言信息 */
@@ -87,16 +88,45 @@ Page({
 	
 	
 chooseAddress: function (e) {
-	console.log(e)
+	/* console.log(e)
 		 let data = e.currentTarget.dataset.value;
 		let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;
 	  wx.navigateTo({
 	 	    url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode +'&isDefault=' + this.data.isDefault
+	  }) */
+	  
+	  wx.navigateTo({
+	    url: '/hj_shop/pages/address/address?chooseMode=true&addressId=' + this.data.address.id
 	  })
+	  
 	}, 
-	
+
+openAddrss:function(){
+           var that =this;		
+			apps.util.request({
+			  'url': 'entry/wxapp/Openaddr',
+			  header: {
+			    'content-type': 'application/json' // 默认值
+			  }, 
+			  data:{
+				  isDefault:this.data.isDefault
+			  },
+			  success(res) { 
+				  console.log(res)
+				       var addrdata = [];
+				    	for (var i = 0; i < res.data.data.length; i++) {					
+				    		  addrdata[i] = res.data.data[i]	    		  				
+				    		   } 
+								that.setData({
+									address:addrdata
+								})					   
+						}
+					})
+		
+ 		
+},	
 	/* 添加收货地址 */
-   addAddress: function() {
+   /* addAddress: function() {
 		let that = this;
 		wx.chooseAddress({
 		 	success: res => {
@@ -107,7 +137,7 @@ chooseAddress: function (e) {
 			} 
 		}) 
 				
-	}, 
+	}, */
 
 	
 

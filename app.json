@@ -1,8 +1,9 @@
 {
   "pages": [
+    "hj_shop/pages/cart/cart",
+    "hj_shop/pages/order/order",
     "hj_shop/pages/user/user",
-    "hj_shop/pages/cart/cart", 
-   
+    
     "hj_shop/pages/editaddr/editaddr",
 	 "hj_shop/pages/index/index",  
     
@@ -10,7 +11,7 @@
     "hj_shop/pages/detail_order/detail_order",
     "hj_shop/pages/order_info/order_info",
     "hj_shop/pages/login/login",  
-    "hj_shop/pages/order/order",
+    
    
     "hj_shop/pages/catelist/catelist",
 	"hj_shop/pages/order_Result/order_Result",
@@ -65,7 +66,7 @@
 	   "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index",  
 	   "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
 	   "van-CellGroup": "/miniprogram_npm/@vant/weapp/cell-group/index",   
-	   "van-toast": "/miniprogram_npm/@vant/weapp/toast/index",
+	   "van-Toast": "/miniprogram_npm/@vant/weapp/toast/index",
 	   "van-dialog":"/miniprogram_npm/@vant/weapp/dialog/index"
 	 
 	  

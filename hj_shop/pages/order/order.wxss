@@ -18,6 +18,48 @@
   background-size: auto 10rpx;
 }
 
+.address-box {
+  display: flex;
+  align-items: center;
+  background: #fefbee;
+  padding: 25rpx 32rpx 25rpx 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.address-box .l {
+  width: 125rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-box .l .name {
+  width: 125rpx;
+  font-size: 29rpx;
+  color: #333;
+}
+
+.address-box .m {
+  width: 550rpx;
+  min-height: 84rpx;
+}
+
+.address-box .mobile {
+  margin-bottom: 7rpx;
+  font-size: 29rpx;
+  color: #333;
+}
+
+.address-box .address {
+  display: block;
+  font-size: 25rpx;
+  color: #666;
+}
+
+.address-box .r image {
+  width: 16rpx;
+  height: 27rpx;
+}
+
 
 .goods-list {
   width: 100%;

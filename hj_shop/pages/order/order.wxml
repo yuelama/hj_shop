@@ -2,16 +2,20 @@
 <view class="main">
 	<!-- <navigator url="../address/address"> -->
 	<form>
-	 <view wx:if="{{address.userName}}" class="order-address" data-id="{{address.id}}"  data-value="{{address}}" bindtap="chooseAddress">
-	 	  <view class="l">
-	 	        <text class="order-address-name">{{address.userName}}</text>
-	 		    <text class="order-address-phone">{{address.telNumber}}</text>
-	 	    </view>
-	 	  <view color="#b4282d" plain wx:if="{{address.isDefault}}">默认</view>  
-	 	    <!-- <text class="order-address-detail"> {{address.provinceName}} {{address.cityName}}	{{address.countyName}}{{address.detailInfo}}</text> -->
-	     <van-cell  icon="location-o" >{{address.provinceName}} {{address.cityName}}{{address.countyName}}{{address.detailInfo}}</van-cell>
-	</view>  
-	 <van-cell wx:else  title="添加收货地址" icon="location-o"  bindtap="addAddress"/> 
+    <view class="address-box" wx:for ="{{address}}"  wx:key="{{item}}"  bindtap="chooseAddress">
+      <view class="l">
+        <text class="name">{{item.user_name}}</text>
+        <van-tag color="#b4282d" plain wx:if="{{item.isDefault}}">默认</van-tag>
+      </view>
+      <view class="m">
+        <text class="mobile">{{item.user_mobile}}</text>
+        <text class="address wux-ellipsis--l3">{{item.user_address + item.user_street}}</text>
+      </view>
+      <view class="r">
+        <image src="/images/temp/rightArrow.png"></image>
+      </view> 
+    </view>
+	
 	<view class="address-bg"></view>
 	<!--  </navigator> -->
 	<view class="goods-list">

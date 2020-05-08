@@ -20,7 +20,7 @@ Page({
      mobile: "",
      address: "",
      street: "",
-     isDefault: 2  //1:true 2:false
+     isDefault:false
    },
    show: false,
 	areaList: areaData,
@@ -54,18 +54,17 @@ Page({
 		 'form.address': e.address,
 		 'form.street': e.street
 		 })
-	   }	
-	 
+	   }		 
 	  if (e.isDefault == "true") {
 	    this.setData({
-	      'isDefault': 1
+	      'isDefault': true
 	    })
 	  } else {
 	    this.setData({
-	      'isDefault': 2
+	      'isDefault': false
 	    })
 	  }	 
-	//this.loadAddr()
+   
   },
 
 //选择地点
@@ -122,7 +121,7 @@ Page({
     this.setData({
       show: false
     })
-  },
+  }, 
   
   onChangeName: function (e) {
     this.setData({
@@ -135,9 +134,9 @@ Page({
     })
   },
   
-  showSelectAddress: function (e) {
+  onChangeAddress: function (e) {
     this.setData({
-      show: true
+      'form.address': e.detail
     })
   },
   
@@ -154,13 +153,13 @@ Page({
     })
   },
   
-  cancelSelect: function () {
+ /* cancelSelect: function () {
     this.setData({
       show: false
     })
   },
-  
- selectArea: function (e) {
+  */
+/* selectArea: function (e) {
 	 //console.log(e)
     let v = e.detail.values;
     let data = v[0].name + " " + v[1].name + " " + v[2].name;
@@ -169,14 +168,17 @@ Page({
       show: false
     })
 	
-  }, 
+  }, */
 
 
 saveAddress: function () {
     let pages = getCurrentPages();
+	
     let prevPage = pages[pages.length - 2]; //上一个页面
     let data = prevPage.data.addressList;
+	
     let that = this;
+	
     if (this.data.editaddr) {
       // 编辑
       data.forEach(function (v, index) {
@@ -184,6 +186,7 @@ saveAddress: function () {
           data[index] = that.data.form;
         }
       })
+	  
     } else {
       // 添加
       data.push(this.data.form)
@@ -193,44 +196,45 @@ saveAddress: function () {
     prevPage.setData({
       addressList: data
     })
-    Toast.success({
+	
+   /* Toast.success({
       duration: 0,
       message: '保存成功',
-    }); 
+    }); */
 	
     setTimeout(function () {
       wx.navigateBack({
         delta: 1
       })
     }, 1000)
-
+    this.loadAddr()
   },
   
  loadAddr:function(){
  	let that = this;
-    // let addr_data = this.data.form;
-	 console.log(form.name)
-	 
- 	// console.log(data)
- 	 let addr =  data.provinceName+ " " + data.cityName + " " + data.countyName;
- 		apps.util.request({
- 		  'url': 'entry/wxapp/Addaddress',
- 		  header: {
- 		    'content-type': 'application/json' // 默认值
- 		  }, 
- 		  data:{
- 			  name:data.userName,
- 			  mobile:data.telNumber,
- 			  address: addr,
- 			   street: data.detailInfo,
- 			  postcode:data.postalCode,
- 			   openid:wx.getStorageSync('userid')
- 		    },
- 		  success(res) {
- 				wx.removeStorageSync('address');
- 										
- 			  }
- 	})
+    let addr_info = that.data.form;
+	//console.log(addr_info.isDefault)
+	  apps.util.request({
+	   	     'url': 'entry/wxapp/Addaddress',
+	   	     header: {
+	   	       'content-type': 'application/json' // 默认值
+	   	     }, 
+	   	     data:{
+	   	   	name:addr_info.name,
+	   	   	mobile:addr_info.mobile,
+	   	   	address:addr_info.address,
+	   	   	street:addr_info.street,
+			isDefault:addr_info.isDefault,
+	   	     openid:wx.getStorageSync('userid')
+	   	     },
+	   	     success(res) {
+	   	   	   console.log(res)
+	   	   	
+			
+	        }
+		})
+ 	
+ 	
  },  
   
   

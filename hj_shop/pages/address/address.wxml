@@ -14,18 +14,20 @@
     <view slot="content" class="item {{item.checked ? 'checked' : ''}}">
       <view class="left" data-value="{{item}}" bindtap="chooseAddress">
         <view class="name">{{item.user_name}}</view>
-        <van-tag color="#b4282d" plain wx:if="{{item.isDefault}}">默认</van-tag>
+	
+        <van-tag color="#b4282d"  wx:if="{{item.isDefault}}">默认</van-tag>
+	
       </view>
       <view class="middle" data-value="{{item}}" bindtap="chooseAddress">
         <view class="mobile">{{item.user_mobile}}</view>
         <view class="desc wux-ellipsis--l2">{{item.user_address + item.user_street}}</view>
       </view>
 	  
-	 <van-icon name="edit" size="26" color="#999" data-value="{{item}}" bindtap="editAddress" />
+	 <van-icon name="delete" size="26" color="#999" data-value="{{item}}" bindtap="deleteAddr" />
 	  <!-- <van-icon name="delete" size="26" color="#999" data-value="{{item}}" bindtap="deleteAddr" /> -->
-     <!--  <view class="edit" data-value="{{item}}" bindtap="editAddress">
-        <i-icon type="edit" size="26" color="#999" />	
-      </view> -->
+      <view class="edit" data-value="{{item}}" bindtap="editAddress">
+        <van-icon name="edit" size="26" color="#999" />	
+      </view> 
     </view>
 	
     <!-- <view slot="button" class="delete" data-value="{{item}}" bindtap="deleteAddress">

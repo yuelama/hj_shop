@@ -15,7 +15,7 @@ Page({
 	
 	addressList: [],
 	 
-	isDefault:false,
+	isDefault:false,  //1:true 2:false
 	address:false
   
 	
@@ -24,12 +24,51 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (e) {
-	
-  
+  onLoad: function (options) {
+	  
+	  console.log( this.data.addressList)
+	  
+	  
+	 if (options.chooseMode == "true") {
+	   this.setData({
+	     chooseMode: true
+	   })
+	   
+	   
+				let that = this;
+	     this.data.addressList.forEach(function (v, index) {
+	       if (options.addressId == v.id) {
+	         that.setData({
+	           [`addressList[${index}].checked`]: true
+	         });
+	       }
+	     })
+	   }
+ 
   },
+  
+  getaddrinfo:function(){
+	  let that = this;
+	  	apps.util.request({
+	  	  'url': 'entry/wxapp/GetAddr',
+	  	  header: {
+	  	    'content-type': 'application/json' // 默认值
+	  	  }, 	    
+	  	  success(res) { 
+	  		 // console.log(res)
+	  		       var addrs = [];
+	  		    	for (var i = 0; i < res.data.data.length; i++) {					
+	  		    		  addrs[i] = res.data.data[i]	    		  				
+	  		    		   } 
+	  						that.setData({
+	  							addressList:addrs
+	  						})					   
+	  				}
+	  			})
+  },
+  
 
- loadAddr:function(){
+ /* loadAddr:function(){
 	let that = this;
      let data = wx.getStorageSync("address") ;
 	// console.log(data)
@@ -52,7 +91,7 @@ Page({
 										
 			  }
 	})
-}, 
+}, */
 
 
   /**
@@ -66,23 +105,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
- 	var that =this;
- 		apps.util.request({
- 		  'url': 'entry/wxapp/GetAddr',
- 		  header: {
- 		    'content-type': 'application/json' // 默认值
- 		  }, 	    
- 		  success(res) { 
- 			 // console.log(res)
- 			       var addrs = [];
- 			    	for (var i = 0; i < res.data.data.length; i++) {					
- 			    		  addrs[i] = res.data.data[i]	    		  				
- 			    		   } 
- 							that.setData({
- 								addressList:addrs
- 							})					   
- 					}
- 				})
+ 	 this.getaddrinfo()
   },
 
   /**
@@ -161,7 +184,7 @@ Page({
  },
  
  editAddress: function (e) {
-   //console.log(e)
+   console.log(e)
    let data = e.currentTarget.dataset.value;
  //  console.log(data)
    wx.navigateTo({
@@ -191,9 +214,9 @@ Page({
 	  let that = this;	  
     wx.chooseAddress({
       success:res =>{
-		  let addr = res.provinceName+ " " + res.cityName + " " + res.countyName;
+		  let address = res.provinceName+ " " + res.cityName + " " + res.countyName;
 		  wx.navigateTo({
-		  	 	    url: '/hj_shop/pages/editaddr/editaddr?import=true&name=' + res.userName + '&mobile=' + res.telNumber + '&addr=' + addr + '&street=' + res.detailInfo + '&postcode=' + res.postalCode +'&isDefault=' + this.data.isDefault
+		  	 	    url: '/hj_shop/pages/editaddr/editaddr?import=true&name=' + res.userName + '&mobile=' + res.telNumber + '&address=' + address + '&street=' + res.detailInfo + '&postcode=' + res.postalCode +'&isDefault=' + this.data.isDefault
 		  })
 	  }
     }) 
