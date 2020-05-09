@@ -3,9 +3,6 @@
   areaData
 } from "../../../components/area.js" 
 /* import Toast from '../../../miniprogram_npm/@vant/weapp/toast/index'; */
-
-
-
 let apps = getApp();
 var form;
 Page({
@@ -23,7 +20,7 @@ Page({
      isDefault:false
    },
    show: false,
-	areaList: areaData,
+	//areaList: areaData,
 	editaddr: false
   },
 
@@ -140,7 +137,6 @@ Page({
     })
   },
   
-  
   onChangeStreet: function (e) {
     this.setData({
       'form.street': e.detail
@@ -173,7 +169,6 @@ Page({
 
 saveAddress: function () {
     let pages = getCurrentPages();
-	
     let prevPage = pages[pages.length - 2]; //上一个页面
     let data = prevPage.data.addressList;
 	
@@ -182,7 +177,9 @@ saveAddress: function () {
     if (this.data.editaddr) {
       // 编辑
       data.forEach(function (v, index) {
+		 
         if (v.id == that.data.form.id) {
+			
           data[index] = that.data.form;
         }
       })
@@ -207,7 +204,7 @@ saveAddress: function () {
         delta: 1
       })
     }, 1000)
-    this.loadAddr()
+   this.loadAddr()
   },
   
  loadAddr:function(){
@@ -228,9 +225,7 @@ saveAddress: function () {
 	   	     openid:wx.getStorageSync('userid')
 	   	     },
 	   	     success(res) {
-	   	   	   console.log(res)
-	   	   	
-			
+	   	   	   console.log(res)		
 	        }
 		})
  	

@@ -14,25 +14,25 @@ Page({
 		product_pic: '',
 		actualPrice: '', //实际价格
 		text: "",
-		
-        couponCount: 2,
-        coupon: {
-          id: "",
-          title: "",
-          discount: 0
-        },		
-		
-		
-		
+
+		couponCount: 2,
+		coupon: {
+			id: "",
+			title: "",
+			discount: 0
+		},
+
+
+
 		productList: [], //购物车商品列表
-    
+
 		expressPrice: 0, //运费
 
 		orders: [],
 		address: {},
-		
-		isDefault:true
-	
+
+		isDefault: false
+
 
 	},
 
@@ -61,11 +61,12 @@ Page({
 		}
 		// 实际价格总计		
 		let actual_Price = that.data.expressPrice / 10 + that.data.total_price - that.data.coupon.discount
-       
+
 		this.setData({
 			actualPrice: actual_Price
 		})
-	this.openAddrss()	
+		//this.openAddrss()	
+		//this.addadressinfo()
 	},
 
 	/* 获取留言信息 */
@@ -76,70 +77,63 @@ Page({
 		}) */
 		var that = this
 		var value = e.detail.value,
-		  len = parseInt(value.length);
+			len = parseInt(value.length);
 		if (len > that.data.noteMaxLen)
-		  return;
+			return;
 		that.setData({
-		  content: value, 
-		  noteNowLen: len
+			content: value,
+			noteNowLen: len
 		})
 	},
-	
-	
-	
-chooseAddress: function (e) {
-	/* console.log(e)
-		 let data = e.currentTarget.dataset.value;
-		let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;
-	  wx.navigateTo({
-	 	    url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode +'&isDefault=' + this.data.isDefault
-	  }) */
-	  
-	  wx.navigateTo({
-	    url: '/hj_shop/pages/address/address?chooseMode=true&addressId=' + this.data.address.id
-	  })
-	  
-	}, 
 
-openAddrss:function(){
-           var that =this;		
-			apps.util.request({
-			  'url': 'entry/wxapp/Openaddr',
-			  header: {
-			    'content-type': 'application/json' // 默认值
-			  }, 
-			  data:{
-				  isDefault:this.data.isDefault
-			  },
-			  success(res) { 
-				  console.log(res)
-				       var addrdata = [];
-				    	for (var i = 0; i < res.data.data.length; i++) {					
-				    		  addrdata[i] = res.data.data[i]	    		  				
-				    		   } 
-								that.setData({
-									address:addrdata
-								})					   
-						}
-					})
-		
- 		
-},	
-	/* 添加收货地址 */
-   /* addAddress: function() {
+	chooseAddress: function(e) {
 		let that = this;
-		wx.chooseAddress({
-		 	success: res => {
-				//console.log(res)
-				that.setData({
-					address: res
-				}) 
-			} 
-		}) 
-				
-	}, */
+		let data = e.currentTarget.dataset.value;
+		let addr = data.provinceName + " " + data.cityName + " " + data.countyName;
+		/*wx.navigateTo({
+		  url: '/hj_shop/pages/address/address?address=true&name=' + data.userName + '&mobile=' + data.telNumber + '&address=' + addr + '&street=' + data.detailInfo + '&isDefault=' +this.data.isDefault
+		}) */
+		apps.util.request({
+			'url': 'entry/wxapp/Addaddress',
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			data: {
+				name: data.userName,
+				mobile: data.telNumber,
+				address: addr,
+				street: data.detailInfo,
+				isDefault: this.data.isDefault,
+				openid: wx.getStorageSync('userid')
+			},
+			success(res) {
+				// console.log(res)			 	   	
+				that.addAddress()
+			}
+		})
 
-	
+
+	},
+
+	/* 添加收货地址 */
+	addAddress: function() {
+		wx.chooseAddress({
+			success: res => {
+				this.setData({
+					address: res
+				})
+
+			}
+		})
+
+	},
+
+	/* addadressinfo:function( ){
+		let that = this;
+		console.log(this.data.address)
+	   let address = e.provinceName+ " " + e.cityName + " " + e.countyName;
+
+	}, */
 
 	ToPay: function(e) {
 		var that = this;
@@ -149,27 +143,27 @@ openAddrss:function(){
 		var title = this.data.orders[0].product_name;
 		//console.log(this.data.orders)
 		var order_img = this.data.orders[0].img;
-			
+
 		if (!this.data.address.userName) {
-			this.chooseAddress();
+			this.addAddress()
 		} else {
-			 apps.util.request({
-			 'url': 'entry/wxapp/createorder',
-			header: {
-			   'content-type': 'application/json'
-						  },		
-			data:{					
-				title:title,
-				order_img:order_img,
-				openid:wx.getStorageSync('userid'),
-				actprice:this.data.actualPrice,
-				ordernum:this.data.order_num,				
-				message:that.data.content,										
-				} ,					 
-			        success(res) {
-						console.log(res)
-			       }								        
-			     }) 
+			apps.util.request({
+				'url': 'entry/wxapp/createorder',
+				header: {
+					'content-type': 'application/json'
+				},
+				data: {
+					title: title,
+					order_img: order_img,
+					openid: wx.getStorageSync('userid'),
+					actprice: this.data.actualPrice,
+					ordernum: this.data.order_num,
+					message: that.data.content,
+				},
+				success(res) {
+
+				}
+			})
 			this.wxpay();
 		}
 		//wx.removeStorageSync('cart');		   	
@@ -180,7 +174,7 @@ openAddrss:function(){
 		var that = this;
 		var order_num = this.data.order_num;
 		var actualPrice = this.data.actualPrice;
-		var orders = this.data.orders;	
+		var orders = this.data.orders;
 		var title = '总计';
 		var app = getApp();
 		wx.showModal({
@@ -263,7 +257,7 @@ openAddrss:function(){
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function() {
-    //this.chooseAddress()
+
 
 	},
 

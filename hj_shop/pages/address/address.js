@@ -6,18 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chooseMode: false,
-	//isDefault: true,
-	checked: false,
-  
 	addr_info:[],
 	del_id:'',
+	addressList:[], 
+		name: "",
+		mobile: "",
+		address: "",
+		street: "",
+		isDefault:"",
 	
-	addressList: [],
-	 
-	isDefault:false,  //1:true 2:false
-	address:false
-  
+	address:false,
 	
   },
 
@@ -25,47 +23,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+	  let that = this;
+	 // console.log(that.data.addressList)
 	  
-	  console.log( this.data.addressList)
+	 
 	  
+	/* console.log(options)
+	wx.setNavigationBarTitle({
+	  title: '地址管理',
+	})
+	if (options.chooseMode == "true") {
+	  this.setData({
+	    chooseMode: true
+	  })
 	  
-	 if (options.chooseMode == "true") {
-	   this.setData({
-	     chooseMode: true
-	   })
-	   
-	   
-				let that = this;
-	     this.data.addressList.forEach(function (v, index) {
-	       if (options.addressId == v.id) {
-	         that.setData({
-	           [`addressList[${index}].checked`]: true
-	         });
-	       }
-	     })
-	   }
- 
+	} */
+
   },
   
-  getaddrinfo:function(){
-	  let that = this;
-	  	apps.util.request({
-	  	  'url': 'entry/wxapp/GetAddr',
-	  	  header: {
-	  	    'content-type': 'application/json' // 默认值
-	  	  }, 	    
-	  	  success(res) { 
-	  		 // console.log(res)
-	  		       var addrs = [];
-	  		    	for (var i = 0; i < res.data.data.length; i++) {					
-	  		    		  addrs[i] = res.data.data[i]	    		  				
-	  		    		   } 
-	  						that.setData({
-	  							addressList:addrs
-	  						})					   
-	  				}
-	  			})
-  },
+  
   
 
  /* loadAddr:function(){
@@ -105,7 +81,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
- 	 this.getaddrinfo()
+ 	var that =this;
+ 		apps.util.request({
+ 		  'url': 'entry/wxapp/GetAddr',
+ 		  header: {
+ 		    'content-type': 'application/json' // 默认值
+ 		  }, 	    
+ 		  success(res) { 
+ 			 // console.log(res)
+ 			       var addrs = [];
+ 			    	for (var i = 0; i < res.data.data.length; i++) {					
+ 			    		  addrs[i] = res.data.data[i]	    		  				
+ 			    		   } 
+ 							that.setData({
+ 								addressList:addrs
+ 							})												  														   
+ 					}
+						
+ 				}) 
+				
+				
   },
 
   /**
@@ -184,7 +179,7 @@ Page({
  },
  
  editAddress: function (e) {
-   console.log(e)
+  // console.log(e)
    let data = e.currentTarget.dataset.value;
  //  console.log(data)
    wx.navigateTo({
@@ -223,6 +218,7 @@ Page({
   },
   
   chooseAddress: function (e) {
+	  //console.log(e)
     if (this.data.chooseMode) {
       let address = e.currentTarget.dataset.value;
   
