@@ -1,8 +1,9 @@
 {
   "pages": [
+    "hj_shop/pages/cart/cart",
     "hj_shop/pages/user/user",
    "hj_shop/pages/index/index",
-    "hj_shop/pages/cart/cart",
+    
     "hj_shop/pages/order/order",
    
     

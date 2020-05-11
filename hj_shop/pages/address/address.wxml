@@ -14,7 +14,9 @@
      <view slot="content" class="item {{item.checked ? 'checked' : ''}}"> 
       <view class="left" data-value="{{item}}" bindtap="chooseAddress">
         <view class="name">{{item.user_name}}</view>
+		
         <van-tag color="#b4282d"  wx:if="{{item.isDefault}}">默认</van-tag>
+		
       </view>
       <view class="middle" data-value="{{item}}" bindtap="chooseAddress">
         <view class="mobile">{{item.user_mobile}}</view>

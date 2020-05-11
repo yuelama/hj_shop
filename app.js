@@ -1,12 +1,13 @@
 //app.js
 
 import util from 'we7/resource/js/util.js';
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
    var openid = wx.getStorageSync('userid');
    if (openid) { 
-   	
+   	   	  
    } else {
      //2 如果没有就到服务器去请求一下最新的然后缓存
      util.getUserInfo(function (userInfo) {
@@ -30,6 +31,7 @@ App({
        })
      }) 
    }
+   
   },
   onShow: function () {
   },
@@ -51,7 +53,7 @@ App({
   util: util,
   globalData: {
     userInfo: null
-	
+
   },
   siteInfo: require('siteinfo.js')
 })
