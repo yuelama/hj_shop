@@ -51,7 +51,7 @@ Page({
 	
 	//跳转到详情页面
 	Toproductdetail: function (event){
-     // console.log(event)
+      console.log(event)
 	  wx.navigateTo({
 	  	url:'/hj_shop/pages/productdetail/productdetail?id='+event.currentTarget.dataset.productid,
 	  }) 

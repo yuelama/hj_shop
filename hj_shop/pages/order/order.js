@@ -39,13 +39,15 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
-		//console.log(options)
+		console.log(options)
 		var that = this;
 		var orderinfo = wx.getStorageSync('cart') || [];
+		var productList = wx.getStorageSync('chooseGoods');
+		console.log(productList)
 		this.setData({
-			order_num: options.order_num,
-			total_price: options.total_price,
-			orders: orderinfo
+			order_num: productList.order_num,
+			total_price: productList.money,
+			orders: productList.goods
 		})
 		//console.log(that.data.total_price)	
 		// 判断运费
@@ -59,13 +61,41 @@ Page({
 			})
 		}
 		// 实际价格总计		
-		let actual_Price = that.data.expressPrice / 10 + that.data.total_price - that.data.coupon.discount
+		let actual_Price = that.data.expressPrice  + that.data.total_price - that.data.coupon.discount
        
 		this.setData({
 			actualPrice: actual_Price
 		})
-		
+		this.Goodsinfo()
 	},
+
+Goodsinfo:function(){
+      var that = this;
+	
+	  apps.util.request({
+	  	'url': 'entry/wxapp/product',
+	  	header: {
+	  		'content-type': 'application/json'
+	  	},
+		data:{
+			
+		},
+	  	success(res) {
+	  		console.log(res)
+	  		 var proinfo = [];
+	  		for (var i = 0; i < res.data.data.products.length; i++) {
+	  			proinfo[i] = res.data.data.products[i]
+	  		} 
+			//console.log(proinfo)
+	  		that.setData({
+				
+	  			products:proinfo
+	  		})
+	  	}
+	  
+	  })
+
+},
 
    /**
     * 生命周期函数--监听页面显示

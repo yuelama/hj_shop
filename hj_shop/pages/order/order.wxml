@@ -20,7 +20,7 @@
 	<!--  </navigator> -->
 	<view class="goods-list">
 		<view class="list-title">商品列表</view>
-		<view class="a-goods" wx:for-items="{{orders}}" wx:key="{{index}}">
+		<view class="a-goods" wx:for-items="{{products}}" wx:key="{{index}}">
 			<view class="img-box">
 				<image src="{{item.img}}" class="img" />
 			</view>
