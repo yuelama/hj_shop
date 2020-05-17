@@ -28,7 +28,7 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "hj_shop/pages/index/index",
+        "pagePath": "hj_shop/pages/home/home",
         "text": "首页",
         "iconPath": "images/temp/home.png",
         "selectedIconPath": "images/temp/homeactive.png"

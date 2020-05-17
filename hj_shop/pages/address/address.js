@@ -24,11 +24,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) { 
-	 
-	  console.log( options) 
-	   
-	   
+  onLoad: function (options) { 	 
+	  //console.log( options) 	      
 	 if (options.chooseMode == "true") {
 	   this.setData({
 	     chooseMode: true
@@ -43,12 +40,8 @@ Page({
 	           [`addressList[${index}].checked`]: true
 	         });
 	       }
-	     }) 
-		 
-		 
-		   
+	     }) 		 	   
 	   }
-  
   },
   
  /* getaddrinfo:function(){
@@ -166,8 +159,7 @@ Page({
   
   deleteAddr: function (e) {
 	// console.log(e)
-	 let data = e.currentTarget.dataset.value;
-	 
+	 let data = e.currentTarget.dataset.value;	 
 	let that = this;
 	var openid = wx.getStorageSync('userid');
 	apps.util.request({

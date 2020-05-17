@@ -7,9 +7,12 @@ Page({
 	data: {
 		openid: '',
 		cartlist: [],
-		orderlist: [],
+		
+		orderlist: {},
+		order_id:'',
 		order_num: '',
 		total_price: '',
+			
 		product_pic: '',
 		actualPrice: '', //实际价格
 		text: "",
@@ -19,37 +22,30 @@ Page({
           id: "",
           title: "",
           discount: 0
-        },		
+        },			
 		
-		
-		
-		productList: [], //购物车商品列表
-    
+		productList: [], //购物车商品列表    
 		expressPrice: 0, //运费
-
 		orders: [],
-		address: {},
-		
+		address: {},		
 		isDefault:true
-	
-
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
-		console.log(options)
+		//console.log(options)
 		var that = this;
-		var orderinfo = wx.getStorageSync('cart') || [];
-		var productList = wx.getStorageSync('chooseGoods');
-		console.log(productList)
-		this.setData({
-			order_num: productList.order_num,
-			total_price: productList.money,
-			orders: productList.goods
+		//var orderinfo = wx.getStorageSync('cart') || [];
+		var productList = wx.getStorageSync('chooseGoods');		
+	
+		 this.setData({
+		  order_num: productList.allCount,
+		  total_price: productList.money,
+		  orderlist:productList.goods
 		})
-		//console.log(that.data.total_price)	
+			
 		// 判断运费
 		if (this.data.total_price >= 1) {
 			this.setData({
@@ -65,23 +61,20 @@ Page({
        
 		this.setData({
 			actualPrice: actual_Price
-		})
+		}) 
 		this.Goodsinfo()
 	},
 
 Goodsinfo:function(){
-      var that = this;
-	
+      var that = this;	
+	  var arr = this.data.orderlist;
 	  apps.util.request({
 	  	'url': 'entry/wxapp/product',
 	  	header: {
 	  		'content-type': 'application/json'
-	  	},
-		data:{
-			
-		},
+	  	},	
 	  	success(res) {
-	  		console.log(res)
+	  		//console.log(res)
 	  		 var proinfo = [];
 	  		for (var i = 0; i < res.data.data.products.length; i++) {
 	  			proinfo[i] = res.data.data.products[i]

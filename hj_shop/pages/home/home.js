@@ -12,6 +12,21 @@ Page({
    interval: 5000,
    duration: 1000,
    
+   menu1content: [{
+     icon: 'iconfont icon-canshi',
+     title: '菜品调配'
+   }, {
+     icon: 'iconfont icon-lingdang-copy',
+     title: '售后服务'
+   }, {
+     icon: 'iconfont icon-mifen2',
+     title: '主食调配'
+   }, {
+     icon: 'iconfont icon-jiubei',
+     title: '赠送酒水'
+   }],
+   
+   
    userSite:"",
    product_list:{},
    products:[],
@@ -34,6 +49,7 @@ Page({
     // restaurant_id: 'renmaid',
      // 选择的商品数量
      goods: {},
+	 count:'',
      // 总金额
      money: 0,
     
@@ -53,7 +69,7 @@ Page({
 	  		'content-type': 'application/json'
 	  	},
 	  	success(res) {
-	  		console.log(res)
+	  		//console.log(res)
 	  		 var proinfo = [];
 	  		for (var i = 0; i < res.data.data.products.length; i++) {
 	  			proinfo[i] = res.data.data.products[i]
@@ -70,6 +86,53 @@ Page({
      this.getbannerinfo()
 	 this.getcateinfo()	 
   },
+  
+ /**
+    * 添加商品  需要添加对应商品信息 购买的数量
+    * @param e
+    */
+   addorder: function addorder(e) {
+ 	 // console.log(e)
+     var goodsId = e.currentTarget.dataset.goodsid;
+    
+     if (!goodsId) {
+       return wx.showModal({
+         title: '抱歉',
+         content: '您选的商品暂时无法提供',
+         showCancel: false,
+         confirmText: '我知道了'
+       });
+     }
+     var chooseGoods = this.data.chooseGoods;
+     var goods = chooseGoods.goods;
+     var count = goods[goodsId];    //获取购买数量 
+     // 已有该商品
+     if (count) {
+       goods[goodsId] = ++count;
+ 	   
+     } else {
+       goods[goodsId] = 1;
+     }
+ 	 
+     chooseGoods.goods = goods;    //包含购买数量商品
+ 	
+     this.setData({
+       chooseGoods: chooseGoods
+     });
+ 	
+      var money = this.calculateMoney();
+     chooseGoods.money = money; 
+     // 增加计数
+     ++chooseGoods.allCount;   // 选取商品数量 
+     this.setData({
+       chooseGoods: chooseGoods
+     });
+     wx.setStorageSync('chooseGoods', this.data.chooseGoods);
+ 	 //console.log(this.data.chooseGoods)
+   }, 
+  
+  
+  
 
 // 获取商品轮播图片信息
 	getbannerinfo: function() {
@@ -215,7 +278,7 @@ Page({
   goCheckOrder: function goCheckOrder() {
     if (this.data.chooseGoods.allCount <= 0) {
       return wx.showToast({
-        title: '您还有购买商品',
+        title: '您还没有购买商品',
         icon: 'success',
         mask: true
       });
@@ -229,50 +292,7 @@ Page({
 
 
 
- /**
-    * 添加商品  需要添加对应商品信息 购买的数量
-    * @param e
-    */
-   addorder: function addorder(e) {
- 	 // console.log(e)
-     var goodsId = e.currentTarget.dataset.goodsid;
-     if (!goodsId) {
-       return wx.showModal({
-         title: '抱歉',
-         content: '您选的商品暂时无法提供',
-         showCancel: false,
-         confirmText: '我知道了'
-       });
-     }
-     var chooseGoods = this.data.chooseGoods;
-     var goods = chooseGoods.goods;
-     var count = goods[goodsId];    //获取购买数量
-     // 已有该商品
-     if (count) {
-       goods[goodsId] = ++count;
-     } else {
-       goods[goodsId] = 1;
-     }
-     chooseGoods.goods = goods;    //包含购买数量商品
-	 
-	 //console.log(chooseGoods.goods)
-     this.setData({
-       chooseGoods: chooseGoods
-     });
- 	
-      var money = this.calculateMoney();
-     chooseGoods.money = money; 
-     // 增加计数
-     ++chooseGoods.allCount;   // 选取商品数量
-	 
-	
-	 
-     this.setData({
-       chooseGoods: chooseGoods
-     });
-     wx.setStorageSync('chooseGoods', this.data.chooseGoods);
-	 //console.log(this.data.chooseGoods)
-   },
+
  
  
    /**

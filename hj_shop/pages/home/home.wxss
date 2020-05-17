@@ -82,6 +82,28 @@
   background-color: #eee;
 } */
 
+
+view , page {
+  padding: 0px;
+  margin: 0px;
+}
+
+.company {
+  width: 100%;
+  height: 100%;
+}
+
+.video_title {
+  margin-top: 15rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  font-size: 16px;
+}
+
+
+
+
+
 .menu1 {
   display: flex;
 }
@@ -155,6 +177,8 @@
   padding-left: 16rpx;
   background-color: #f6f6f6;
 }
+
+
 .menu0-r-goods {
   padding: 25rpx 20rpx 22rpx 14rpx;
   border-bottom: 1rpx solid #e5e5e5;
@@ -228,6 +252,7 @@
   border-bottom: 1rpx solid #e5e5e5;
   display: flex;
   justify-content: space-around;
+ 
 }
 .shop-car-wrap .shop-car-content .menu0-r-goods image {
   width: 103rpx;
@@ -236,6 +261,7 @@
 .shop-car-wrap .shop-car-content .menu0-r-goods .menu0-r-g {
   display: flex;
   flex-direction: column;
+  
 }
 .shop-car-wrap .shop-car-content .menu0-r-goods .menu0-r-g view:nth-child(1) {
   color: #333;
@@ -252,6 +278,8 @@
 .shop-car-wrap .shop-car-content .order-btn {
   display: flex;
   transform: translate(10rpx, 10rpx);
+  
+ 
 }
 .shop-car-wrap .shop-car-content .order-btn view {
   width: 60rpx;
@@ -303,21 +331,24 @@
 .show .iconfont::before {
   text-shadow: 0rpx -1rpx 2rpx #0094ff;
 }
+
 .menu2 {
-  border-top: 10rpx solid #dfdfdf;
-  display: flex;
+  border-top: 10rpx solid #dfdfdf; 
+  display:flex;
+ 
   flex-wrap: wrap;
-  overflow: hidden;
+  overflow: hidden; 
 }
 .menu2 view {
-  width: 33.33%;
+  /* background-color: #07C160; */
+ width: 33.33%;
   height: 288rpx;
   box-sizing: border-box;
   font-size: 36rpx;
   line-height: 450rpx;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; 
 }
 .menu2 .iconfont::before {
   display: block;

@@ -18,15 +18,36 @@
 <view class="ordering">
 
   <view class="o-center">
-   <view bindtap="choose" data-tab="0" class="o-c-menu {{ currentmenu == 0 ? 'active' : ''}}">批发商城</view>
+   <view bindtap="choose" data-tab="0" class="o-c-menu {{ currentmenu == 0 ? 'active' : ''}}">商城介绍</view>
     <view bindtap="choose" data-tab="1" class="o-c-call {{ currentmenu == 1 ? 'active' : ''}}">花椒商城</view>
     <view bindtap="choose" data-tab="2" class="o-c-shop {{ currentmenu == 2 ? 'active' : ''}}">服务</view>
     <view bindtap="choose" data-tab="3" class="o-c-shop {{ currentmenu == 3 ? 'active' : ''}}">用户反馈</view>
   </view>
   <!--导航内容0-->
- <!-- <view class="menu0" wx:if="{{ currentmenu == 0 }}">
- 
- </view> -->
+ <view class="menu0" wx:if="{{ currentmenu == 0 }}">
+	 <!-- <view class="company">
+	     <image class="image" src="/images/icon.png" background-size="cover" />
+	     <text  class="title"  >公司视频展示</text> 
+		 <view class="video">
+	   <video  src="https://tw-1253577751.cos.ap-chengdu.myqcloud.com/%E8%8A%B1%E6%A4%92/huajiaochengpin.mp4"></video>   
+	     </view>
+	 </view> -->
+	<view class="company">
+	  <!-- <view class="video_title">公司视频展示</view> -->
+	  <van-cell title="公司视频" value="公司视频展示" />
+	  <video src="https://tw-1253577751.cos.ap-chengdu.myqcloud.com/%E8%8A%B1%E6%A4%92/huajiao01.mp4" style="width: 100%; height: {{videoHeight}}px;" />
+	</view> 
+	
+  <view class='container-line'></view> 
+    <view class="company">
+      <!-- <view class="video_title">公司视频展示</view> -->
+     <!-- <van-cell title="花椒制作过程" value="花椒制作过程展示" /> -->
+	  <van-cell title="花椒制作过程" icon="hot-o" />
+      <video src="https://tw-1253577751.cos.ap-chengdu.myqcloud.com/%E8%8A%B1%E6%A4%92/huajiaochengpin.mp4" style="width: 100%; height: {{videoHeight}}px;"/>
+    </view> 
+  
+</view> 
+
   
   <!--导航内容1-->
   <view  wx:if="{{ currentmenu == 1 }}">
@@ -126,9 +147,9 @@
    </view>
   <!--导航内容2-->
   <view class="menu2" wx:if="{{ currentmenu == 2 }}">
-    <view catchtap="menu1choose" data-tabmenu="{{ index }}" class="{{ item.icon }}" wx:for="{{ menu1content }}" wx:key="unique">
-      {{ item.title }}
-    </view>
+  	 <view catchtap="menu1choose" data-tabmenu="{{ index }}" class="{{ item.icon }}" wx:for="{{ menu1content }}" wx:key="unique">
+  	   {{ item.title }}
+  	 </view>
   </view>
   <!--导航内容3-->
   <view class="menu3" wx:if="{{ currentmenu == 3 }}">
