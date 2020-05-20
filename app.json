@@ -33,12 +33,7 @@
         "iconPath": "images/temp/home.png",
         "selectedIconPath": "images/temp/homeactive.png"
       },
-      {
-        "pagePath": "hj_shop/pages/cart/cart",
-        "text": "购物车",
-        "iconPath": "images/temp/cart_disable.png",
-        "selectedIconPath": "images/temp/cart.png"
-      },
+    
       {
         "pagePath": "hj_shop/pages/user/user",
         "text": "个人中心",

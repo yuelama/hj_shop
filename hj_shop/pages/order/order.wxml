@@ -8,10 +8,9 @@
     		    <text class="order-address-phone">{{address.telNumber}}</text>
     	    </view>
     	  <view color="#b4282d" plain wx:if="{{address.isDefault}}">默认</view>  
-    	    <text class="order-address-detail"> {{address.provinceName}} {{address.cityName}}{{address.countyName}}{{address.detailInfo}}</text>
-     </view>   	
-    <!--    <view wx:else class="order-no-address" bindtap="openAddress">添加收货地址</view> -->
-    	<van-cell wx:else  title="添加收货地址" icon="location-o"   bindtap="addAddress"/> 	
+    	    <text class="order-address-detail"> {{address.provinceName}} {{address.cityName}}	{{address.countyName}}{{address.detailInfo}}</text>
+    	</view> 
+    <van-cell wx:else  title="添加收货地址" icon="location-o"   bindtap="addAddress"/>
     	<view class="address-bg"></view>
 	<!--  </navigator> -->
 	<view class="goods-list">

@@ -94,7 +94,10 @@ Page({
     * @param e
     */
    addorder: function addorder(e) {
- 	   var goodsId = e.currentTarget.dataset.goodsid;      
+ 	   var goodsId = e.currentTarget.dataset.goodsid;
+		var openid = wx.getStorageSync('userid');
+		
+	  if('openid'){
  	       if (!goodsId) {
  	         return wx.showModal({
  	           title: '抱歉',
@@ -128,7 +131,12 @@ Page({
 	             chooseGoods: chooseGoods
 	           });
 	           wx.setStorageSync('chooseGoods', this.data.chooseGoods);
-	       	 console.log(this.data.chooseGoods)
+	       	// console.log(this.data.chooseGoods)
+		}else{
+			wx.switchTab({
+				url:'../login/login'
+			})
+		}
    }, 
   
   
