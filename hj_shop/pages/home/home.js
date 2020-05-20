@@ -48,8 +48,9 @@ Page({
      // 饭店id
     // restaurant_id: 'renmaid',
      // 选择的商品数量
+
      goods: {},
-	 count:'',
+	 
      // 总金额
      money: 0,
     
@@ -69,16 +70,17 @@ Page({
 	  		'content-type': 'application/json'
 	  	},
 	  	success(res) {
-	  		//console.log(res)
+	  		console.log(res)
 	  		 var proinfo = [];
 	  		for (var i = 0; i < res.data.data.products.length; i++) {
 	  			proinfo[i] = res.data.data.products[i]
 	  		} 
 			//console.log(proinfo)
-	  		that.setData({
-				
+	  		that.setData({				
 	  			products:proinfo
 	  		})
+			//console.log(that.data.products)
+			wx.setStorageSync('products',that.data.products)
 	  	}
 	  
 	  })
@@ -92,43 +94,41 @@ Page({
     * @param e
     */
    addorder: function addorder(e) {
- 	 // console.log(e)
-     var goodsId = e.currentTarget.dataset.goodsid;
-    
-     if (!goodsId) {
-       return wx.showModal({
-         title: '抱歉',
-         content: '您选的商品暂时无法提供',
-         showCancel: false,
-         confirmText: '我知道了'
-       });
-     }
-     var chooseGoods = this.data.chooseGoods;
-     var goods = chooseGoods.goods;
-     var count = goods[goodsId];    //获取购买数量 
-     // 已有该商品
-     if (count) {
-       goods[goodsId] = ++count;
- 	   
-     } else {
-       goods[goodsId] = 1;
-     }
- 	 
-     chooseGoods.goods = goods;    //包含购买数量商品
- 	
-     this.setData({
-       chooseGoods: chooseGoods
-     });
- 	
-      var money = this.calculateMoney();
-     chooseGoods.money = money; 
-     // 增加计数
-     ++chooseGoods.allCount;   // 选取商品数量 
-     this.setData({
-       chooseGoods: chooseGoods
-     });
-     wx.setStorageSync('chooseGoods', this.data.chooseGoods);
- 	 //console.log(this.data.chooseGoods)
+ 	   var goodsId = e.currentTarget.dataset.goodsid;      
+ 	       if (!goodsId) {
+ 	         return wx.showModal({
+ 	           title: '抱歉',
+ 	           content: '您选的商品暂时无法提供',
+ 	           showCancel: false,
+ 	           confirmText: '我知道了'
+ 	         });
+ 	       }
+ 	       var chooseGoods = this.data.chooseGoods;
+ 	       var goods = chooseGoods.goods;
+ 	       var count = goods[goodsId];    //获取购买数量 
+ 	       // 已有该商品
+ 	       if (count) {
+ 	         goods[goodsId] = ++count;
+ 	   	   
+ 	       } else {
+ 	         goods[goodsId] = 1;
+ 	       }
+ 	   	 
+ 	       chooseGoods.goods = goods;    //包含购买数量商品
+ 	   	
+ 	       this.setData({
+ 	         chooseGoods: chooseGoods
+	       });
+	       	
+	            var money = this.calculateMoney();
+	           chooseGoods.money = money; 
+	           // 增加计数
+	           ++chooseGoods.allCount;   // 选取商品数量 
+	           this.setData({
+	             chooseGoods: chooseGoods
+	           });
+	           wx.setStorageSync('chooseGoods', this.data.chooseGoods);
+	       	 console.log(this.data.chooseGoods)
    }, 
   
   
@@ -290,10 +290,6 @@ Page({
 	
  },
 
-
-
-
- 
  
    /**
     * 删除商品

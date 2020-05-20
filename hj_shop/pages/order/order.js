@@ -8,6 +8,8 @@ Page({
 		openid: '',
 		cartlist: [],
 		
+		products:{},
+		
 		orderlist: {},
 		order_id:'',
 		order_num: '',
@@ -38,12 +40,29 @@ Page({
 		//console.log(options)
 		var that = this;
 		//var orderinfo = wx.getStorageSync('cart') || [];
-		var productList = wx.getStorageSync('chooseGoods');		
-	
+		
+		var products = wx.getStorageSync('products');
+		console.log(products)
+		var arr =[];
+		for(var i in products){
+			var goodsid = products[i].id
+			var productList = wx.getStorageSync('chooseGoods');	
+			for(var j in productList.goods){
+				if(goodsid ==j){
+					  console.log(j) 
+					  products[i].product_num = productList.goods[j]
+					  arr.push(products[i]);					
+				}										
+			}			
+		}
+	/* 	this.setData({
+			
+		}) */
+				   
 		 this.setData({
 		  order_num: productList.allCount,
 		  total_price: productList.money,
-		  orderlist:productList.goods
+		  products:arr
 		})
 			
 		// 判断运费
@@ -62,33 +81,7 @@ Page({
 		this.setData({
 			actualPrice: actual_Price
 		}) 
-		this.Goodsinfo()
 	},
-
-Goodsinfo:function(){
-      var that = this;	
-	  var arr = this.data.orderlist;
-	  apps.util.request({
-	  	'url': 'entry/wxapp/product',
-	  	header: {
-	  		'content-type': 'application/json'
-	  	},	
-	  	success(res) {
-	  		//console.log(res)
-	  		 var proinfo = [];
-	  		for (var i = 0; i < res.data.data.products.length; i++) {
-	  			proinfo[i] = res.data.data.products[i]
-	  		} 
-			//console.log(proinfo)
-	  		that.setData({
-				
-	  			products:proinfo
-	  		})
-	  	}
-	  
-	  })
-
-},
 
    /**
     * 生命周期函数--监听页面显示
@@ -116,17 +109,13 @@ Goodsinfo:function(){
      								})	
 			               
      						}
-     		})
-   },
+     		             })
+        },
 
 
 
 	/* 获取留言信息 */
 	bindTextAreaBlur: function(e) {
-		//console.log(e)
-		/* this.setData({
-			text: e.detail.value
-		}) */
 		var that = this
 		var value = e.detail.value,
 		  len = parseInt(value.length);
@@ -142,27 +131,38 @@ Goodsinfo:function(){
 	
 chooseAddress: function (e) {
 	//console.log(e)
-	let adress_id = e.currentTarget.dataset.value.id;
-	/* console.log(e)
-		 
-		let addr = data.provinceName+ " " + data.cityName + " " + data.countyName;
-	  wx.navigateTo({
-	 	    url: '/hj_shop/pages/editaddr/editaddr?editaddr=true&name=' + data.userName + '&mobile=' + data.telNumber + '&addr=' + addr + '&street=' + data.detailInfo + '&postcode=' + data.postalCode +'&isDefault=' + this.data.isDefault
-	  }) */
-	  
+	/* let adress_id = e.currentTarget.dataset.value.id; 
 	  wx.navigateTo({
 	    url: '/hj_shop/pages/address/address?chooseMode=true&addressId=' + adress_id
-	  })
-	  
+	  }) */	 
+     let that = this;
+		wx.chooseAddress({
+		 	success: res => {
+				//console.log(res)
+				that.setData({
+					address: res
+				}) 
+			} 
+		}) 
+	   
 	}, 
 
 	
 	/* 添加收货地址 */
-   addAddress: function() {
-		
-		wx.navigateTo({
+   addAddress: function() {		
+		/* wx.navigateTo({
 		  url: '/hj_shop/pages/address/address?chooseMode=true'
-		})
+		}) */
+		let that = this;
+				wx.chooseAddress({
+				 	success: res => {
+						//console.log(res)
+						that.setData({
+							address: res
+						}) 
+					} 
+				}) 
+		
 				
 	}, 
 
@@ -172,13 +172,15 @@ chooseAddress: function (e) {
 		var that = this;
 		/* var address = that.data.address;*/
 		var actprice = this.data.actualPrice; //实际支付现金
-		var message = that.data.content; //获取用户留言信息		
-		var title = this.data.orders[0].product_name;
-		//console.log(this.data.orders)
-		var order_img = this.data.orders[0].img;
+		var message = that.data.content; //获取用户留言信息	
 			
-		if (!this.data.address.user_name) {
-			this.addAddress()
+		var title = this.data.products.product_name;
+		
+		console.log(this.data.products)
+		var order_img = this.data.products.img;
+			
+		if (!this.data.address.userName) {
+			this.chooseAddress()
 		} else {
 			 apps.util.request({
 			 'url': 'entry/wxapp/createorder',
@@ -199,7 +201,7 @@ chooseAddress: function (e) {
 			     }) 
 			this.wxpay();
 		}
-		//wx.removeStorageSync('cart');		   	
+		wx.removeStorageSync('products');		   	
 	},
 
 
