@@ -55,8 +55,7 @@ Page({
    needDistance: 0,
    scrollHeight2: 815,
    showShopCarContent: false,
-   showMask: false,
-   
+   showMask: false, 
    chooseGoods: {
      // 饭店id
     // restaurant_id: 'renmaid',

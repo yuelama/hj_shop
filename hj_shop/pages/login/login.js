@@ -74,7 +74,7 @@ Page({
 			}) */
           wx.setStorageSync('openid', res.data.data.userid)	  
           wx.reLaunch({
-            url: '/hj_shop/pages/index/index',
+            url: '/hj_shop/pages/home/home',
           })
        } else{
 		   wx.reLaunch({

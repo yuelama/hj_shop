@@ -5,19 +5,27 @@
   padding: 10rpx;
   height: 90rpx; 
   box-sizing: border-box;
+ 
 }
+ 
+.search .search-in{
+	width: 100%;
+} 
  
 .o-top {
   height: 310rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #e5e5e5;
-  padding: 33rpx 20rpx 20rpx;
+  /* padding: 33rpx 20rpx 20rpx; */
+  padding: 13rpx 10rpx 10rpx;
   display: flex;
+  
 }
 
 .o-top .slide-image{
   width:100%;
   height:300rpx;
+ 
 }
 
 .o-top .o-top-img {
@@ -25,6 +33,8 @@
   height: 110rpx;
   border-radius: 50%;
   margin-right: 70rpx;
+  
+
 }
 .o-top .o-top-name {
   display: flex;
@@ -99,9 +109,6 @@ view , page {
   margin-right: 10rpx;
   font-size: 16px;
 }
-
-
-
 
 
 .menu1 {
@@ -212,6 +219,11 @@ view , page {
    font-size:18rpx;
 } 
 
+ .menu0-r-goods .menu0-r-g .menu0-t-g{
+   color: #333;
+   font-size:18rpx;
+} 
+
 
 /* 控制产品名称样式 */
 .menu0-r-goods .menu0-r-g view:nth-child(1) {
@@ -295,6 +307,7 @@ view , page {
   width: 103rpx;
   height: 103rpx;
 }
+
 .shop-car-wrap .shop-car-content .menu0-r-goods .menu0-r-g {
   display: flex;
   flex-direction: column;

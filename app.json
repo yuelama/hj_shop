@@ -1,5 +1,6 @@
 {
   "pages": [
+    "hj_shop/pages/login/login",
     "hj_shop/pages/home/home",
     "hj_shop/pages/index/index",
   
@@ -9,8 +10,7 @@
     "hj_shop/pages/editaddr/editaddr",   
 	  "hj_shop/pages/address/address",
     "hj_shop/pages/detail_order/detail_order",
-    "hj_shop/pages/order_info/order_info",
-    "hj_shop/pages/login/login",   
+    "hj_shop/pages/order_info/order_info", 
   
   	"hj_shop/pages/order_Result/order_Result",
     "hj_shop/pages/productdetail/productdetail"    

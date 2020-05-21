@@ -7,21 +7,20 @@
      <view wx:for ="{{userSite}}" wx:key="{{item.id}}">{{ item.userSite }} </view>
    </van-icon>
    <van-search v-model="value" bindtap="goSearch" class ="search-in" placeholder="搜索餐厅、 菜系、 商圈" /> 
-<!--  <view bindtap="goSearch" class="search-in iconfont icon-sousuo_sousuo">搜索餐厅、 菜系、 商圈</view> -->
+<!--  <view bindtap="goSearch" class="search-in iconfont icon-sousuo_sousuo">搜索餐厅、 菜系、 商圈</view> -->	
  </view>
-<swiper class="o-top" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-	      <block wx:for="{{banner}}" wx:key="item.id">
-	        <swiper-item >
-	          <image  src="{{item.imgs}}" class="slide-image"/>
-	        </swiper-item>
-	      </block>
- </swiper>	
+ <swiper class="o-top" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+ 	      <block wx:for="{{banner}}" wx:key="item.id">
+ 	        <swiper-item >
+ 	          <image  src="{{item.imgs}}" class="slide-image" mode="scaleToFill"/>
+ 	        </swiper-item>
+ 	      </block>
+  </swiper>
 <view class="ordering">
-
   <view class="o-center">
    <view bindtap="choose" data-tab="0" class="o-c-menu {{ currentmenu == 0 ? 'active' : ''}}">商城介绍</view>
     <view bindtap="choose" data-tab="1" class="o-c-call {{ currentmenu == 1 ? 'active' : ''}}">花椒商城</view>
-    <view bindtap="choose" data-tab="2" class="o-c-shop {{ currentmenu == 2 ? 'active' : ''}}">服务</view>
+   <!-- <view bindtap="choose" data-tab="2" class="o-c-shop {{ currentmenu == 2 ? 'active' : ''}}">服务</view> -->
     <view bindtap="choose" data-tab="3" class="o-c-shop {{ currentmenu == 3 ? 'active' : ''}}">用户反馈</view>
   </view>
   <!--导航内容0-->
@@ -100,11 +99,12 @@
 					<van-tag plain type="success" color="#7232dd" ><text class="menu0-tag-text">热卖</text></van-tag>
 					<van-tag plain type="danger" color="#f2826a"><text class="menu0-tag-text">天然</text></van-tag>			  
 				  </view>
-				  <view><text class="menu0-t-s">农家生态种植，天然生态</text></view>
-                  <view><text class="menu0-t-p">规格:{{ menu0List.stock }}    月售: {{ menu0List.stock }} 好评: {{ item.good }}</text></view>
+				  <view><text class="menu0-t-s">农家生态种植 . 天然环保</text></view>
+                  <view><text class="menu0-t-p">规格:{{ menu0List.weigt }}    月售: {{ menu0List.stock }}份</text></view>
+				  
                   <view class="menu0-r-price">
                     <!-- ￥ {{ menu0List.price }} 元 -->
-					促销：￥{{menu0List.price}} <text class="del">￥{{menu0List.market_price}}</text>
+					促销：￥{{menu0List.price}} 元 <text class="del">￥{{menu0List.market_price}}</text>
                   </view>
                 </view>
                 <!--购买商品按钮-->
@@ -162,6 +162,7 @@
   	   {{ item.title }}
   	 </view>
   </view>
+  
   <!--导航内容3-->
   <view class="menu3" wx:if="{{ currentmenu == 3 }}">
     <!--顶部地址和拨打电话-->
@@ -169,6 +170,7 @@
       <view class="menu2-top-left iconfont icon-icglobaltitlebar48iconfontmap">{{ restaurant.address }}</view>
       <view class="iconfont icon-dianhua" bindtap="callPhone"></view>
     </view>
+	
   <scroll-view scroll-y="true" style="height: {{ scrollHeight2 }}rpx;" class="menu2-user-comment">
     <!--评分-->
     <view class="menu2-grade">
@@ -193,13 +195,16 @@
           <view class="iconfont icon-wuxing {{ item.grade }}"></view>
           <view>{{ item.time }}</view>
         </view>
+		
         <view class="menu2-comment">
           <view class="menu2-comment-item" wx:for="{{ item.userComment}}" wx:key="unique" wx:for-item="detailitem">
             {{ detailitem }}
           </view>
         </view>
       </view>
+	  
     </scroll-view>
+	
   </view>
 </view>
 <!--遮罩层-->
