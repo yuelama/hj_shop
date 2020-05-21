@@ -46,7 +46,7 @@
 	   "weui-cells": "/components/cells/cells",
 	   "weui-cell": "/components/cell/cell",
 	   
-	   
+	  "van-notice-bar":"/miniprogram_npm/@vant/weapp/notice-bar/index",
 	  "van-card":"/miniprogram_npm/@vant/weapp/card/index",
 	  "van-search":"/miniprogram_npm/@vant/weapp/search/index",	  
 	   "van-popup":"/miniprogram_npm/@vant/weapp/popup/index",

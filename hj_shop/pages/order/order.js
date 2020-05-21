@@ -40,12 +40,16 @@ Page({
 		//console.log(options)
 		var that = this;
 		//var orderinfo = wx.getStorageSync('cart') || [];
+		//var products = wx.getStorageSync('products');
+        if(options.order == 'true'){
+		
 		var products = wx.getStorageSync('products');
-        if(options.order == 'true')
+		
 		var arr =[];
 		for(var i in products){
 			var goodsid = products[i].id
 			var productList = wx.getStorageSync('chooseGoods');	
+			//console.log(productList)
 			for(var j in productList.goods){
 				if(goodsid ==j){
 					  products[i].product_num = productList.goods[j]
@@ -53,7 +57,8 @@ Page({
 					
 				}										
 			}			
-		}		   
+		}	
+      }			   
 		 this.setData({
 		  order_num: productList.allCount,
 		  total_price: productList.money,

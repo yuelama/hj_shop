@@ -8,7 +8,7 @@
 }
  
 .o-top {
-  height: 410rpx;
+  height: 310rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #e5e5e5;
   padding: 33rpx 20rpx 20rpx;
@@ -17,7 +17,7 @@
 
 .o-top .slide-image{
   width:100%;
-  height:400rpx;
+  height:300rpx;
 }
 
 .o-top .o-top-img {
@@ -180,41 +180,77 @@ view , page {
 
 
 .menu0-r-goods {
-  padding: 25rpx 20rpx 22rpx 14rpx;
-  border-bottom: 1rpx solid #e5e5e5;
+ /* padding: 25rpx 20rpx 22rpx 14rpx; */
+  padding: 15rpx 10rpx 12rpx 7rpx;
+  border-bottom: 8rpx solid #e5e5e5;
   display: flex;
+  justify-content:space-evenly;
+
 }
 .menu0-r-goods image {
-  width: 103rpx;
-  height: 103rpx;
-  margin-right: 29rpx;
+  width: 203rpx;
+  height: 203rpx;
+  margin-right:30rpx;
 }
 .menu0-r-goods .menu0-r-g {
   display: flex;
   flex-direction: column;
-  line-height: 38rpx;
+  line-height: 38rpx; 
+  width:320rpx;
 }
+
+
+.menu0-r-goods .menu0-r-g .menu0-t-p{
+   color: #333;
+   font-size:23rpx;
+   justify-content:space-evenly;
+}
+
+
+ .menu0-r-goods .menu0-r-g .menu0-t-s{
+   color: #333;
+   font-size:18rpx;
+} 
+
+
+/* 控制产品名称样式 */
 .menu0-r-goods .menu0-r-g view:nth-child(1) {
   color: #333;
-  font-size: 26rpx;
+  font-size: 32rpx;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:500;
+  margin: 0 0 10rpx 0;
+  
 }
+
 .menu0-r-goods .menu0-r-g view:nth-child(2) {
   color: #666;
-  font-size: 22rpx;
+  font-size: 22rpx;   
 }
+
 .menu0-r-goods .menu0-r-g .menu0-r-price {
   font-size: 24rpx;
   color: #f00;
 }
+
+.menu0-r-goods .menu0-r-g .menu0-r-price .del {
+  font-size: 20rpx;
+  color:#999;
+  text-decoration:line-through; 
+  line-height:30px; 
+  margin-left:10px;
+}
+
 .order-btn {
   display: flex;
-  transform: translate(10rpx, 70rpx);
+  transform: translate(-40rpx, 160rpx);
+ 
 }
 .order-btn view {
-  width: 60rpx;
-  height: 60rpx;
+  width: 70rpx;
+  height: 70rpx;
   text-align: center;
-  line-height: 60rpx;
+  line-height: 70rpx;
   font-size: 30rpx;
   font-weight: 700;
   color: #fff;
@@ -229,7 +265,8 @@ view , page {
   bottom: 0;
   width: 100%;
   z-index: 9999;
-  background-color: #fff;
+   background-color: #fff; 
+ 
 }
 
 .shop-car-wrap .shop-car-content {
@@ -238,7 +275,7 @@ view , page {
   bottom: 85rpx;
   width: 100%;
   height: 500rpx;
-  background-color: #fff;
+  background-color: #fff; 
   border: 1rpx solid #000;
 }
 
@@ -263,6 +300,19 @@ view , page {
   flex-direction: column;
   
 }
+ .menu0-r-goods .menu0-r-g .menu0-tag {
+  display: flex;
+  flex-direction:row; 
+  
+  
+}
+
+.menu0-r-goods .menu0-r-g .menu0-tag .menu0-tag-text{
+  color: #333;
+  font-size: 16rpx;
+}
+
+
 .shop-car-wrap .shop-car-content .menu0-r-goods .menu0-r-g view:nth-child(1) {
   color: #333;
   font-size: 26rpx;

@@ -1,5 +1,7 @@
 // hj_shop/pages/home/home.js
 let apps = getApp();
+var that = this;
+//import { NoticeBar } from '/miniprogram_npm/@vant/weapp/notice-bar/index.js';
 Page({
 
   /**
@@ -11,7 +13,9 @@ Page({
    autoplay: true,
    interval: 5000,
    duration: 1000,
-   
+   notext: {
+	   title:'2公斤起送 满3公斤打9.5折 5公斤9折'
+   },
    menu1content: [{
      icon: 'iconfont icon-canshi',
      title: '菜品调配'
@@ -25,6 +29,15 @@ Page({
      icon: 'iconfont icon-jiubei',
      title: '赠送酒水'
    }],
+   
+   
+   /* coupon: {
+     id: 'code123123',
+     delmoney: 10,
+     condition: 100,
+     time: '2020-5-20'
+   }, */
+   
    
    
    userSite:"",
@@ -70,7 +83,7 @@ Page({
 	  		'content-type': 'application/json'
 	  	},
 	  	success(res) {
-	  		console.log(res)
+	  		//console.log(res)
 	  		 var proinfo = [];
 	  		for (var i = 0; i < res.data.data.products.length; i++) {
 	  			proinfo[i] = res.data.data.products[i]
@@ -137,6 +150,7 @@ Page({
 				url:'../login/login'
 			})
 		}
+		this.onLoad();
    }, 
   
   
@@ -221,6 +235,7 @@ Page({
       currentleftmenu: e.currentTarget.dataset.menu,
       currentmenuid: e.currentTarget.dataset.menulistid
     });
+	
   },
 
 /**
@@ -317,7 +332,9 @@ Page({
      chooseGoods.money = money; 
      // 减少计数
      --chooseGoods.allCount;
+	 var g = chooseGoods.goods;
      if (chooseGoods.allCount <= 0) {
+	
        this.setData({
          showMask: false,
          showShopCarContent: false
@@ -327,6 +344,7 @@ Page({
        chooseGoods: chooseGoods
      });
      wx.setStorageSync('chooseGoods', this.data.chooseGoods);
+	 this.onLoad();
    },
 
 
@@ -375,7 +393,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+     
   },
 
   /**
