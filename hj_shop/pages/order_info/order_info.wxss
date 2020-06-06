@@ -1,6 +1,6 @@
 /* hj_shop/pages/order_info/order_info.wxss */
 
-.address-bg {
+/* .address-bg {
   display: block;
   width: 100%;
   height: 11rpx;
@@ -48,7 +48,7 @@
 .address-box .r image {
   width: 16rpx;
   height: 27rpx;
-}
+} */
 
 
 /* 订单列表 */

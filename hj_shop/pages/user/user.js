@@ -72,12 +72,13 @@ Login: function () {
   },  
   
 
-Tooders: function (e) {
+toOrder: function (e) {
    // this.checkLogin();
+    console.log(e)
     let type = e.currentTarget.id;
     wx.navigateTo({
       //url: '/hj_shop/pages/order_Result/order_Result?type=' + type,
-	  url: '/hj_shop/pages/order_info/order_info'
+	  url: '/hj_shop/pages/order_info/order_info?type=' + type
     })
   },
   

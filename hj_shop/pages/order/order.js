@@ -8,6 +8,8 @@ Page({
 		openid: '',
 		cartlist: [],
 		
+		status:'',
+		
 		products:{},
 		
 		orderlist: {},
@@ -39,34 +41,35 @@ Page({
 	onLoad: function(options) {
 		//console.log(options)
 		var that = this;
+	
 		//var orderinfo = wx.getStorageSync('cart') || [];
 		//var products = wx.getStorageSync('products');
-        if(options.order == 'true'){
-		
+        if(options.order == 'true'){	
 		var products = wx.getStorageSync('products');
-		
+		var productList = wx.getStorageSync('chooseGoods');
+		//console.log(productList)		
 		var arr =[];
 		for(var i in products){
 			var goodsid = products[i].id
-			var productList = wx.getStorageSync('chooseGoods');	
-			//console.log(productList)
+			
 			for(var j in productList.goods){
 				if(goodsid ==j){
 					  products[i].product_num = productList.goods[j]
-					  arr.push(products[i]);
-					
+					  arr.push(products[i]);				
 				}										
 			}			
 		}	
-      }			   
+      }		
+		//console.log(arr)
 		 this.setData({
 		  order_num: productList.allCount,
 		  total_price: productList.money,
+		  status: options.status,
 		  products:arr
 		})
 		
 		// 判断运费
-		if (this.data.total_price >= 0.20) {
+		if (this.data.total_price >= 0.01) {
 			this.setData({
 				expressPrice: 0
 			})
@@ -87,44 +90,8 @@ Page({
     * 生命周期函数--监听页面显示
     */
    onShow: function() {
-  
-	/* let that = this;
-	 var addressList = this.data.address;
-      console.log(addressList)
-			//让传过来的参数 与现有数据库对比 如果ID相同就取出，并设置checke为true
-	  this.data.addressList.forEach(function (v, index) {
-	    if (options.addressId == v.id) {
-	      that.setData({
-	        [`addressList[${index}].checked`]: true
-	      });
-	    }
-	  }) */		 	   
-	
-	
+  	 	 	
    },
-
-/* var that =this;
-     			apps.util.request({
-     			  'url': 'entry/wxapp/Openaddr',
-     			  header: {
-     			    'content-type': 'application/json' // 默认值
-     			  }, 
-     			  data:{
-     				  isDefault:this.data.isDefault
-     			  }, 
-     			  success(res) { 
-     				  console.log(res)
-     				       var addrdata = [];
-     				    	// for (var i = 0; i < res.data.data.length; i++) {
-							for (var i = 0; i < res.data.data.length; i++) {
-     				    		  addrdata[i] = res.data.data[i]	    		  				
-     				    		   } 
-     								that.setData({
-     									address:addrdata
-     								})	
-			               
-     						}
-     		             }) */
 
 	/* 获取留言信息 */
 	bindTextAreaBlur: function(e) {
@@ -140,7 +107,6 @@ Page({
 	},
 	
 	
-	
  chooseAddress: function (e) {
       this.addAddress()  	 
 	}, 
@@ -154,7 +120,7 @@ Page({
 		 that.setData({
 					address: res
 					}) 
-				this.loadaddress()  						//wx.setStorageSync("addr_info",res)
+				this.loadaddress()  						
 				} 
 		 })     			
 	}, 
@@ -184,15 +150,28 @@ Page({
 	  		 	})
 
   },
+  
+ getorderid:function(){
+  	 var outTradeNo="";  //订单号
+       for(var i=0;i<6;i++) //6位随机数，用以加在时间戳后面。
+       {
+          outTradeNo += Math.floor(Math.random()*10);
+        }
+           outTradeNo = new Date().getTime() + outTradeNo;  //时间戳，
+  		 return outTradeNo
+   }, 
 
 	ToPay: function(e) {
+		//console.log(e)
 		var that = this;
 		//var address = that.data.address;
+		var orderid = that.getorderid();	
+		var status = this.data.status;	
+		
 		var actprice = this.data.actualPrice; //实际支付现金
 		var message = that.data.content; //获取用户留言信息	
 		var title = this.data.products[0].product_name;
-		var order_img = this.data.products[0].img;
-			
+		var order_img = this.data.products[0].img;			
 		if (!this.data.address.userName) {
 			this.addAddress()
 		} else {
@@ -204,27 +183,37 @@ Page({
 			data:{					
 				title:title,
 				order_img:order_img,
+				orderid:orderid,
+				status:status,
 				openid:wx.getStorageSync('userid'),
 				actprice:this.data.actualPrice,
 				ordernum:this.data.order_num,				
 				message:that.data.content,										
 				} ,					 
 			        success(res) {
-						console.log(res)
+						 wx.navigateTo({
+							url:'/hj_shop/pages/pay/pay?pay=true&orderid=' + orderid
+						
+						}) 
+						//console.log(res)
 			       }								        
 			     }) 
-			this.wxpay();
+			//this.wxpay();
 		}
-      wx.removeStorageSync('chooseGoods');	   	
+    //  wx.removeStorageSync('chooseGoods');	   	
 	},
 	
-    wxpay: function() {
+	
+
+	
+    /* wxpay: function() {
 		var that = this;
 		var order_num = this.data.order_num;
+		
 		// console.log(order_num)
 		var actualPrice = this.data.actualPrice;
 		var products = this.data.products;	
-		console.log(products)
+		//console.log(products)
 		var title = '总计';
 		var app = getApp();
 		wx.showModal({
@@ -238,6 +227,7 @@ Page({
 							price: actualPrice,
 							title: title,
 							products:products,
+							
 							order_num: order_num
 						},
 						'cachetime': '0',
@@ -263,6 +253,7 @@ Page({
 											order_num: '',
 											products: [],
 											actualPrice: '',
+											orderid:'',
 											title: ''
                                             
 										});
@@ -275,6 +266,7 @@ Page({
 
 									'fail': function(res) {
 										//  backApp()
+										console.log(res)
 									},
 
 								})
@@ -296,9 +288,10 @@ Page({
 				}
 			}
 		})
+	
 	wx.removeStorageSync('products');
 	wx.removeStorageSync('chooseGoods');
-	},
+	}, */
 
 
 	/**

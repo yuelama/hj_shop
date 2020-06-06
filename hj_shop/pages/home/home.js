@@ -37,9 +37,6 @@ Page({
      condition: 100,
      time: '2020-5-20'
    }, */
-   
-   
-   
    userSite:"",
    product_list:{},
    products:[],
@@ -65,6 +62,7 @@ Page({
 	 
      // 总金额
      money: 0,
+	 status:1,
     
      // 总数
      allCount: 0
@@ -76,6 +74,7 @@ Page({
    */
   onLoad: function (options) {
 	  var that = this;
+	 
 	  apps.util.request({
 	  	'url': 'entry/wxapp/product',
 	  	header: {
@@ -92,7 +91,9 @@ Page({
 	  			products:proinfo
 	  		})
 			//console.log(that.data.products)
+			 wx.stopPullDownRefresh() 
 			wx.setStorageSync('products',that.data.products)
+			
 	  	}
 	  
 	  })
@@ -100,6 +101,16 @@ Page({
      this.getbannerinfo()
 	 this.getcateinfo()	 
   },
+  
+  
+onPullDownRefresh(){
+	  this.onLoad(true)
+  },
+  
+ /* onReachBottom(){
+	  this.page + = 1
+	   this.onLoad()
+  }, */
   
  /**
     * 添加商品  需要添加对应商品信息 购买的数量
@@ -287,7 +298,7 @@ Page({
       money += Number(singleMoney);
 	  
 	  var tomoney = money;
-	  money = parseFloat(tomoney.toFixed(2));
+	  money = parseFloat(tomoney.toFixed(4));
 	  
     }
     return money;
@@ -305,9 +316,11 @@ Page({
         mask: true
       });
     }
+	
     // todo 提交订单信息，然后去到确认页面
     wx.navigateTo({
-      url: '/hj_shop/pages/order/order?order=true'
+      url: '/hj_shop/pages/order/order?order=true&status=1'
+	 //  url: '/pages/pay-result/pay-result?status=1&actualPrice=' + actualPrice,
     });
 	
  },
@@ -413,7 +426,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+     var that = this;
+         that.setData({
+           currentTab: 0 //当前页的一些初始数据，视业务需求而定
+         })
+         this.onLoad(); //重新加载onLoad()
   },
 
   /**

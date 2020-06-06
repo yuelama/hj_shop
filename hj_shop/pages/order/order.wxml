@@ -53,7 +53,7 @@
 	
 	  <view  class="order-footer">
 	  	<view class="order-footer-total">实际付款：￥{{actualPrice}}</view>
-	  	<view class="order-footer-btn" data-order="{{orders}}" bindtap="ToPay">去付款</view>
+	  	<view class="order-footer-btn" data-order="{{orders}}" bindtap="ToPay">提交订单</view>
 	  </view>
 
 </view>

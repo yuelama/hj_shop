@@ -1,0 +1,59 @@
+<!--pages/cart/cart.wxml-->
+
+<view  wx:for ="{{payorder}}" wx:key="{{item.id}}" >
+	    <view class="header">
+	      <view class="order-id">订单编号：{{item.order_no}}</view>
+	    </view>
+		
+		<!-- <view class="info">
+		  <text class="title">商品名称 :{{payorder.title}}</text>
+		  <text class="specDesc">{{payorder.specDesc}}</text>
+		</view> -->
+		
+		<view class="product" >
+		  <image class="img" src="{{item.img_url}}"></image>
+		  <view class="info">
+		    <text class="title">商品名称: {{item.order_name}}</text>
+		    <text class="specDesc">订单数量: {{item.order_num}}</text>
+		  </view>	 
+		</view>
+		
+		<view class="foot" >
+		   <text >应付：￥{{item.order_price}}</text>
+		    <text class="foot-price" >实付：￥{{item.order_price}}</text>	 	
+		</view>
+		
+ 	    <!-- <view class="name-box">
+ 	    	<text>订单名称:</text>
+ 	    	<text class="tit">{{payorder.title}}</text>
+ 	    </view> 
+		<view class="clear"></view>		
+		<view class="price-box">
+				<text>支付金额</text>
+				<text class="price">{{payorder.price}}</text>
+			</view> -->
+			
+		<view class="pay-type-list"> 	
+		   <view class="clear-cell"></view>
+		  		<view class="yt-list-cell b-b">
+		    			<text style="font-size:32rpx;">微信支付</text>
+						<view class="clear-cell"></view>		
+		    			<view class="payicon">
+		    			<icon type="success" color="#FF8917" size="60rpx" class="post" />
+		    			</view>
+		    		</view>
+		   <view class="clear-cell"></view> 
+		
+		
+		<!-- <view class="type-item b-b" click="changePayType(1)"> 
+			 <text class="icon yticon icon-weixinzhifu"></text> 
+				 <view class="con">
+					 <text class="tit" style="font-size: 40rpx;text-align: left;">微信支付</text> 
+					<text style="text-align: center; font-size: 30rpx; margin-top: 40rpx;">推荐使用微信支付</text>										
+				 </view>	 															
+		 </view> 	 -->								
+     </view> 
+		
+		<text class="mix-btn" bindtap="confirm">微信支付</text>
+	</view>
+ 

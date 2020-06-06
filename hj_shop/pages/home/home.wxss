@@ -1,4 +1,23 @@
 /* hj_shop/pages/home/home.wxss */
+
+.top {
+  display: flex;
+  padding: 20rpx;
+}
+.top .van-image {
+  margin-top: 20rpx;
+}
+.top .desc-wrapper {
+  margin-left: 30rpx;
+  line-height: 60rpx;
+}
+.top .desc-wrapper view {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+
+
 .search {
   display: flex;
   align-items: center;
